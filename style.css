@@ -42,7 +42,7 @@ button{font-weight:550}
 }
 .screen{background:var(--paper);color:var(--ink)}
 .slide-in{animation:paperSlide .38s cubic-bezier(.18,.84,.28,1.08)}
-@keyframes paperSlide{from{opacity:.35;transform:translateX(34px) rotate(.3deg)}to{opacity:1;transform:none}}
+@keyframes paperSlide{from{opacity:.45}to{opacity:1}}
 
 /* status, navigation and home gesture */
 .status{color:var(--ink);font-weight:750}
@@ -425,7 +425,7 @@ html,body,.stage{background:#000}
 .chat-row:nth-child(odd),.chat-row:nth-child(even),
 .record-row:nth-child(odd),.record-row:nth-child(even){background:#fff}
 .section-label,.calendar-day,.form-section h3{background:#fafafa}
-.evidence-archive,.unused-tray{background:#f7f7f5}
+.evidence-archive,.unused-tray{background:#f3cf69}
 .resume-hero{background:#f4f1ec;color:var(--ink)}
 .dock,.home .dock{background:#fffffff0}
 .feed{color:var(--ink)}
@@ -655,7 +655,7 @@ html,body,.stage{background:#000}
 .global-evidence{
  position:absolute;z-index:150;left:10px;right:10px;bottom:0;
  margin:0;max-height:calc(142px + env(safe-area-inset-bottom));padding:12px 13px calc(12px + env(safe-area-inset-bottom));
- overflow:hidden;background:#fffffff2;
+  overflow:hidden;background:#f3cf69f2;
  border:1px solid #cbbfb1;border-bottom:0;border-radius:24px 22px 0 0;
  box-shadow:0 -4px 14px #6f59451a;
 }
@@ -730,31 +730,31 @@ html,body,.stage{background:#000}
 }
 .tutorial-wiggle{animation:tutorialWiggle .72s ease-in-out infinite}
 @keyframes tutorialWiggle{
- 0%,100%{transform:scale(1.12) rotate(0)}
- 20%{transform:scale(1.12) rotate(-3deg)}
- 40%{transform:scale(1.12) rotate(3deg)}
- 60%{transform:scale(1.12) rotate(-2deg)}
- 80%{transform:scale(1.12) rotate(2deg)}
+  0%,100%{transform:scale(1.25) rotate(0)}
+  20%{transform:scale(1.25) rotate(-10deg)}
+  40%{transform:scale(1.25) rotate(10deg)}
+  60%{transform:scale(1.25) rotate(-8deg)}
+  80%{transform:scale(1.25) rotate(8deg)}
 }
 .tutorial-modal-layer{position:absolute;inset:0;z-index:245;display:grid;place-items:center;padding:22px;background:#ffffff2e}
 .tutorial-modal{
- width:100%;padding:22px 18px;border:1.5px solid #bca78f;border-radius:24px;
- background:#fffaf0;color:#59483c;box-shadow:4px 7px 24px #6e57333d;text-align:center;
+  width:100%;padding:22px 18px;border:none;border-radius:24px;
+  background:#fadde1;color:#59483c;box-shadow:4px 7px 24px #6e57333d;text-align:center;
 }
 .tutorial-modal h2{margin:0 0 11px;font-size:20px}.tutorial-modal p{margin:0 0 18px;color:#776b61;font-size:14px;line-height:1.7}
-.tutorial-modal button,.tutorial-final button{width:100%;height:44px;border-radius:14px;background:#e9cf98;color:#674f3e}
+.tutorial-modal button,.tutorial-final button{width:100%;height:44px;border-radius:14px;background:#d96c82;color:#fff}
 .tutorial-inline{
- position:absolute;z-index:238;left:18px;right:18px;bottom:175px;padding:11px 14px 11px 40px;
- border:1.5px solid #bca78f;border-radius:16px;background:#fffaf0;color:#6d5949;font-size:12px;line-height:1.5;
- box-shadow:3px 4px 0 #8f73542b;pointer-events:none;
+  position:absolute;z-index:238;left:18px;right:18px;bottom:175px;padding:11px 14px 11px 40px;
+  border:none;border-radius:10px;background:#f7c8d4;color:#6d4052;font-size:12px;line-height:1.5;
+  box-shadow:none;pointer-events:none;
 }
-.tutorial-inline:before{content:"➜";position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#c29243;font-size:20px}
-.tutorial-line-target{position:relative!important;z-index:232!important;transform:scale(1.035);outline:3px solid #d6aa4f;box-shadow:0 8px 24px #765d3d35}
+.tutorial-inline:before{content:"➜";position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#d97a90;font-size:20px}
+.tutorial-line-target{position:relative!important;z-index:232!important;transform:scale(1.035);outline:3px solid #e87a9c;box-shadow:0 8px 24px #d97a9040}
 .tutorial-dim .global-evidence.open{z-index:233}
 .tutorial-final{
- position:sticky;z-index:238;top:0;margin:0 12px 12px;padding:14px;border:1.5px solid #bca78f;
- border-radius:0 0 17px 17px;background:#fff7e7;color:#685646;font-size:12px;line-height:1.55;
- box-shadow:0 4px 12px #6e57331f;
+  position:sticky;z-index:238;top:0;margin:0 12px 12px;padding:14px;border:none;
+  border-radius:0 0 17px 17px;background:#fadde1;color:#685646;font-size:12px;line-height:1.55;
+  box-shadow:0 4px 12px #6e57331f;
 }
 .tutorial-final button{margin-top:10px}
 .tutorial-resume-arrow{bottom:84px;text-align:right;padding:11px 48px 11px 14px}
@@ -877,4 +877,17 @@ html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
 .checklist-item:last-child{border-bottom:0}
 .check-dot{width:20px;height:20px;border:1.5px solid #ccc;border-radius:50%;flex-shrink:0;margin-top:2px;display:grid;place-items:center;font-size:10px;color:transparent}
 .check-dot.checked{border-color:#4a90d9;background:#4a90d9;color:#fff}
+#tutorialWelcomeSheet{align-items:center!important;background:rgba(255,255,255,0.8)!important;z-index:250!important}
+#tutorialWelcomeSheet .confirm-card{border:none!important;margin:0 20px!important;padding:26px 20px!important;border-radius:24px!important;background:#fadde1!important}
+#tutorialWelcomeSheet .primary{background:#d96c82!important;color:#fff!important;border:none!important;box-shadow:none!important}
+.tutorial-end-notice{
+  position:absolute;inset:0;z-index:250;display:grid;place-items:center;padding:22px;background:#ffffff2e;
+  animation:tutorialFadeIn .3s ease;
+}
+.tutorial-end-card{
+  width:100%;padding:22px 18px;border:none;border-radius:24px;
+  background:#fadde1;color:#59483c;box-shadow:4px 7px 24px #6e57333d;text-align:center;
+}
+.tutorial-end-card p{font-size:14px;line-height:1.7;color:#776b61;margin:0}
+@keyframes tutorialFadeIn{from{opacity:0}to{opacity:1}}
 .note-plain{font-size:15px;line-height:1.8;color:#333;white-space:pre-wrap}

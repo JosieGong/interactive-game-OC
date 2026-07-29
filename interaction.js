@@ -384,7 +384,7 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-transfers-catVet":{title:"给猫看病200元",content:"宠物医院支出。",archiveContent:"她会为一只与自己无关的生命，承担起责任。",fields:["kindnessFact"]},
  "archive-transfers-groceries":{title:"替王奶奶买菜",content:"菜市场支出。",archiveContent:"她把邻里之间的关照，活成了日常的一部分。",fields:["kindnessFact"]}
 });
-const state={unlocked:false,introSeen:false,tutorialStep:0,tutorialDone:false,tutorialModal:false,app:null,view:null,photoTab:"library",photoOrigin:"library",clues:[],archiveOpen:false,dossier:false,reveal:false,revealPending:false,ending:false,pin:"",unlockStage:0,dossierValues:{},evidenceAssignments:{},selectedEvidence:null,pendingArchive:null,lastAccuracy:null,newFieldCount:0,submitMessage:"",formError:"",formAlert:false,commNotice:false,confirmSubmit:false,seenStages:{},submissionCount:0,failCount:0,curatorMessages:[],curatorTyping:false,curatorChoice:false,curatorChoiceMode:"",curatorSilent:false,curatorCanContinue:false,curatorRun:0,unusedEvidence:[],momBanner:false,momBannerPhase:"",momNotificationIndex:0,momNoticeRun:0,momFinal:false};
+const state={unlocked:false,introSeen:false,tutorialWelcomeSeen:false,tutorialEndNoticeSeen:false,tutorialStep:0,tutorialDone:false,tutorialModal:false,app:null,view:null,photoTab:"library",photoOrigin:"library",clues:[],archiveOpen:false,dossier:false,reveal:false,revealPending:false,ending:false,pin:"",unlockStage:0,dossierValues:{},evidenceAssignments:{},selectedEvidence:null,pendingArchive:null,lastAccuracy:null,newFieldCount:0,submitMessage:"",formError:"",formAlert:false,commNotice:false,confirmSubmit:false,seenStages:{},submissionCount:0,failCount:0,curatorMessages:[],curatorTyping:false,curatorChoice:false,curatorChoiceMode:"",curatorSilent:false,curatorCanContinue:false,curatorRun:0,unusedEvidence:[],momBanner:false,momBannerPhase:"",momNotificationIndex:0,momNoticeRun:0,momFinal:false};
 const $=s=>document.querySelector(s);
 const currentTime=()=>"02:17";
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -435,14 +435,14 @@ function archiveAttrs(appId,itemId,part,title,content){
 function clue(){return ""}
 function visibleData(key){return (APP_DATA[key]||[]).filter(item=>(item.unlockAt||0)<=state.unlockStage)}
 function render(){
- const p=$("#phone");
- if(!state.unlocked){p.innerHTML=lockHTML();bindLock();return}
- if(!state.introSeen){p.innerHTML=introHTML();bindIntro();return}
- if(!state.app){p.innerHTML=homeHTML();bindHome();mountGlobalArchive();mountPersistentArchiveToggle();mountTutorialUI();return}
- p.innerHTML=appHTML();bindApp();
- if(state.app!=="dossierApp")mountGlobalArchive();
- mountPersistentArchiveToggle();
- mountTutorialUI();
+  const p=$("#phone");
+  if(!state.unlocked){p.innerHTML=lockHTML();bindLock();return}
+	if(!state.introSeen){p.innerHTML=introHTML();bindIntro();return}
+	if(!state.app){p.innerHTML=homeHTML();bindHome();mountGlobalArchive();mountPersistentArchiveToggle();mountTutorialUI();return}
+  p.innerHTML=appHTML();bindApp();
+  if(state.app!=="dossierApp")mountGlobalArchive();
+  mountPersistentArchiveToggle();
+  mountTutorialUI();
 }
 function introHTML(){return `<section class="screen intro-screen"><div class="intro-card"><small>明天会有 OC 吗</small><h1>帮张小鱼<br>完成一份简历</h1><p>张小鱼是一个研二的学生，最近正在忙着找工作。看看她的手机，长按收藏重要的信息，完成她的简历吧～</p><button id="enterPhone">查看她的手机</button></div></section>`}
 function bindIntro(){$("#enterPhone").onclick=()=>{state.introSeen=true;render()}}
@@ -452,9 +452,24 @@ const TUTORIAL_COPY={
  3:["填写简历","打开这里，把收藏的信息拖进简历对应的位置吧"]
 };
 function mountTutorialUI(){
- if(state.tutorialDone)return;
- const screen=$("#phone .screen");if(!screen)return;
- if(state.tutorialStep===1){
+  const screen=$("#phone .screen");if(!screen)return;
+  if(state.tutorialDone){
+    if(!state.tutorialEndNoticeSeen){
+      screen.insertAdjacentHTML("beforeend",`<div class="tutorial-end-notice"><div class="tutorial-end-card"><p>请开始收集重要的信息，完成张小鱼的简历吧</p></div></div>`);
+      state.tutorialEndNoticeSeen=true;
+      setTimeout(()=>{
+        const notice=document.querySelector(".tutorial-end-notice");
+        if(notice){notice.style.transition="opacity .4s ease";notice.style.opacity="0";setTimeout(()=>notice.remove(),400)}
+      },2500);
+    }
+    return;
+  }
+  if(!state.tutorialWelcomeSeen){
+    screen.insertAdjacentHTML("beforeend",`<div class="confirm-sheet" id="tutorialWelcomeSheet"><div class="confirm-card"><h2>新手教程</h2><p>接下来将通过几个简单的步骤，引导你熟悉如何操作。</p><div class="confirm-actions"><button class="primary" id="startTutorial">开始教程</button></div></div></div>`);
+    $("#startTutorial").onclick=()=>{state.tutorialWelcomeSeen=true;render()};
+    return;
+  }
+  if(state.tutorialStep===1){
   screen.classList.add("tutorial-dim");
   const clue=screen.querySelector('[data-archive-evidence="archive-wechat-class"]');
   if(clue){
@@ -467,26 +482,29 @@ function mountTutorialUI(){
   const star=$("#archiveToggle");
   if(star)star.classList.add("tutorial-target",...(state.tutorialModal?[]:["tutorial-wiggle"]));
  }
- if(state.tutorialStep===4&&state.app==="dossierApp"&&!state.view){
-  screen.classList.add("tutorial-dim");
-  const star=$("#archiveToggle");
-  screen.querySelectorAll("[data-drop-field],[data-evidence],#submitDossier,#openResumeMessages").forEach(el=>{el.style.pointerEvents="none";el.style.opacity=".7"});
-  if(!state.archiveOpen){
-   if(star)star.classList.add("tutorial-target","tutorial-wiggle");
-   screen.insertAdjacentHTML("beforeend",`<div class="tutorial-inline tutorial-resume-arrow">点击这里查看你收藏的信息</div>`);
-  }else{
-   const card=screen.querySelector('[data-evidence="archive-wechat-class"]')||screen.querySelector("[data-evidence]");
-   const sectionId=card?correctSectionsFor(card.dataset.evidence)[0]:null;
-   const target=sectionId?screen.querySelector(`[data-drop-field="${sectionId}"]`):null;
-   if(card){card.style.pointerEvents="auto";card.style.opacity="1";card.classList.add("tutorial-line-target")}
-   if(target){target.style.pointerEvents="auto";target.style.opacity="1";target.classList.add("tutorial-line-target")}
-   screen.insertAdjacentHTML("beforeend",`<div class="tutorial-inline">按住高亮卡片拖动。镜像会跟随手指或鼠标，把它放进高亮的简历板块</div>`);
+  if(state.tutorialStep===4&&state.app==="dossierApp"&&!state.view){
+   screen.classList.add("tutorial-dim");
+   const star=$("#archiveToggle");
+   if(!state.archiveOpen){
+    screen.querySelectorAll("[data-drop-field],[data-evidence],#submitDossier,#openResumeMessages").forEach(el=>{el.style.pointerEvents="none";el.style.opacity=".7"});
+    if(star)star.classList.add("tutorial-target","tutorial-wiggle");
+    screen.insertAdjacentHTML("beforeend",`<div class="tutorial-inline tutorial-resume-arrow">点击这里查看你收藏的信息</div>`);
+   }else{
+    screen.querySelectorAll("#submitDossier,#openResumeMessages").forEach(el=>{el.style.pointerEvents="none";el.style.opacity=".7"});
+    const card=screen.querySelector('[data-evidence="archive-wechat-class"]')||screen.querySelector("[data-evidence]");
+    const sectionId=card?correctSectionsFor(card.dataset.evidence)[0]:null;
+    const target=sectionId?screen.querySelector(`[data-drop-field="${sectionId}"]`):null;
+    screen.querySelectorAll("[data-drop-field]").forEach(el=>{el.style.pointerEvents="none";el.style.opacity=".7"});
+    if(card){card.style.pointerEvents="auto";card.style.opacity="1";card.classList.add("tutorial-line-target")}
+    if(target){target.style.pointerEvents="auto";target.style.opacity="1";target.classList.add("tutorial-line-target")}
+    screen.querySelectorAll("[data-evidence]").forEach(el=>{el.style.pointerEvents="auto";el.style.opacity="1"});
+    screen.insertAdjacentHTML("beforeend",`<div class="tutorial-inline">按住高亮卡片拖动。镜像会跟随手指或鼠标，把它放进高亮的简历板块</div>`);
+   }
   }
- }
  if(state.tutorialStep===5&&state.app==="dossierApp"&&!state.view){
   const content=screen.querySelector(".content");
   if(content)content.insertAdjacentHTML("afterbegin",`<div class="tutorial-final">注：信息如果和板块不匹配会被退回，全部板块填写完成后即可点击提交<button id="tutorialFinish">我知道了</button></div>`);
-  $("#tutorialFinish").onclick=()=>{state.tutorialDone=true;state.tutorialStep=-1;state.tutorialModal=false;render()};
+   $("#tutorialFinish").onclick=()=>{state.tutorialDone=true;state.tutorialStep=-1;state.tutorialModal=false;state.app=null;state.view=null;render()};
  }
  if(!state.tutorialModal)return;
  const [title,copy]=TUTORIAL_COPY[state.tutorialStep]||[];
@@ -844,9 +862,10 @@ function mountPersistentArchiveToggle(){
  phone.querySelector(":scope > .persistent-archive-toggle")?.remove();
  phone.insertAdjacentHTML("beforeend",`<button class="archive-toggle persistent-archive-toggle" id="archiveToggle" aria-label="收藏夹">★</button>`);
  const toggle=$("#archiveToggle");
- toggle.onclick=()=>{
-  if(!state.tutorialDone&&state.tutorialStep===2){state.archiveOpen=true;state.tutorialModal=true;render();return}
-  state.archiveOpen=!state.archiveOpen;
+  toggle.onclick=()=>{
+   if(!state.tutorialDone&&state.tutorialStep===2){state.archiveOpen=true;state.tutorialModal=true;render();return}
+   if(!state.tutorialDone&&state.tutorialStep===4){state.archiveOpen=true;render();return}
+   state.archiveOpen=!state.archiveOpen;
   if(state.app==="dossierApp"&&!state.view)renderPreservingScroll();
   else{mountGlobalArchive();mountPersistentArchiveToggle()}
  };
@@ -894,14 +913,15 @@ function bindArchiveHearts(){
    mountGlobalArchive();
    requestAnimationFrame(()=>moveClone(lastX,lastY));
   };
-  el.onpointerdown=event=>{
-   if(state.clues.includes(evidenceId))return;
-   pointerId=event.pointerId;
-   startX=lastX=event.clientX;startY=lastY=event.clientY;
-   window.addEventListener("pointermove",onMove,{passive:false});
-   window.addEventListener("pointerup",onEnd);
-   window.addEventListener("pointercancel",onCancel);
-   timer=setTimeout(begin,420);
+   el.onpointerdown=event=>{
+    if(state.clues.includes(evidenceId))return;
+    pointerId=event.pointerId;
+    startX=lastX=event.clientX;startY=lastY=event.clientY;
+    window.addEventListener("pointermove",onMove,{passive:false});
+    window.addEventListener("pointerup",onEnd);
+    window.addEventListener("pointercancel",onCancel);
+    if(tutorialClue){begin()}
+    else{timer=setTimeout(begin,420)}
   };
   const onMove=event=>{
    if(event.pointerId!==pointerId)return;
@@ -920,9 +940,18 @@ function bindArchiveHearts(){
    if(accepted){
     clone?.remove();clone=null;
     discover(evidenceId);el.classList.add("collected");
-    if(tutorialClue){
-     state.tutorialStep=2;state.archiveOpen=false;render();return;
-    }
+     if(tutorialClue){
+      state.tutorialStep=2;state.archiveOpen=false;
+      const screen=$("#phone .screen");
+      screen.classList.remove("tutorial-dim");
+      screen.querySelectorAll(".tutorial-inline").forEach(el=>el.remove());
+      screen.querySelectorAll(".tutorial-line-target").forEach(el=>el.classList.remove("tutorial-line-target"));
+      document.querySelector(".global-evidence")?.remove();
+      mountPersistentArchiveToggle();
+      const star=$("#archiveToggle");
+      if(star)star.classList.add("tutorial-target","tutorial-wiggle");
+      return;
+     }
     state.archiveOpen=false;mountGlobalArchive();return;
    }
    state.archiveOpen=false;mountGlobalArchive();
@@ -992,8 +1021,7 @@ function bindEvidenceDrag(card){
   window.addEventListener("pointermove",onGlobalMove,{passive:false});
   window.addEventListener("pointerup",onGlobalEnd);
   window.addEventListener("pointercancel",onGlobalCancel);
-  if(event.pointerType==="touch")timer=setTimeout(()=>begin(event),180);
-  else begin(event);
+    begin(event);
  };
  const onGlobalMove=event=>{
   if(event.pointerId!==pointerId)return;
