@@ -217,8 +217,8 @@ Object.assign(APP_DATA,{
  photos:[
   {id:"intern",src:"assets/photos/实习证明.png",album:"favorites",date:"2025年9月",place:"收藏",title:"实习证明",desc:"外贸业务实习生｜某粤广消费品贸易公司（2025.06–2025.09）",unlockAt:0},
   {id:"award",src:"assets/photos/奖状.png",album:"favorites",date:"2023年5月",place:"收藏",title:"学院优秀奖奖状",desc:"大学生国货消费意愿调研｜学院市场调研案例比赛优秀奖",unlockAt:0},
-  {id:"life",src:"assets/photos/乌云.png",album:"library",date:"2021年7月18日",place:"宿舍窗边",title:"雨前的云",desc:"她的相册里存着很多云、花、猫和每顿饭，没有一张自拍。",unlockAt:1},
-  {id:"sunny",src:"assets/photos/晴天.png",album:"library",date:"2022年4月09日",place:"教学楼下",title:"晴天",desc:"她会停下来记录普通日子里很亮的天空。",unlockAt:1},
+  {id:"life",src:"assets/photos/乌云.png",album:"library",date:"2021年7月18日",place:"宿舍窗边",title:"雨前的云",desc:"",unlockAt:1},
+  {id:"sunny",src:"assets/photos/晴天.png",album:"library",date:"2022年4月09日",place:"教学楼下",title:"晴天",desc:"",unlockAt:1},
   {id:"sunset",src:"assets/photos/晚霞.png",album:"library",date:"2022年5月18日",place:"宿舍楼外",title:"傍晚六点十二分",desc:"云的最下面是粉色的，上面仍然很亮。",unlockAt:1},
   {id:"wildflower",src:"assets/photos/野花.png",album:"library",date:"2021年3月27日",place:"去食堂的路上",title:"路边的野花",desc:"一小丛没有名字的花，她拍了三张。",unlockAt:1},
   {id:"kitten",src:"assets/photos/小猫.png",album:"library",date:"2023年6月02日",place:"梧桐苑楼下",title:"楼下那只猫",desc:"同一只猫、同一个傍晚时段，在相册里出现了四年。",unlockAt:1},
@@ -226,11 +226,11 @@ Object.assign(APP_DATA,{
   {id:"noodles",src:"assets/photos/面.png",album:"library",date:"2025年3月08日",place:"二食堂",title:"食堂的一碗面",desc:"备注写着：辣油刚好，面有一点软。",unlockAt:1}
  ],
  recentlyDeleted:[
-  {id:"drawings",cls:"factory",date:"剩余6天",place:"最近删除",title:"最近删除的画",desc:"楼下那只猫、王奶奶的背影、食堂的一碗面。还有6天永久删除。",unlockAt:1}
+  {id:"drawings",src:"删除的画.png",date:"剩余6天",place:"最近删除",title:"最近删除的画",desc:"楼下那只猫、王奶奶的背影、食堂的一碗面。还有6天永久删除。",unlockAt:1}
  ],
  notes:[
   {id:"interview",title:"职位面试准备",subtitle:"待办清单",timestamp:"6月16日",content:"整理常见外贸面试问题及回答思路；准备1分钟自我介绍；复习实习案例；查看公司的主营业务和产品线。",unlockAt:0},
-  {id:"research",title:"课题本周 Todo",subtitle:"数字金融与居民消费",timestamp:"6月15日",content:"补充相关文献5—8篇；整理研究变量、数据来源和主要结论；下载指数和居民消费数据；录入Excel并标记缺失值。",unlockAt:0},
+  {id:"research",title:"课题本周 Todo",subtitle:"数字金融与居民消费",timestamp:"6月15日",content:"补充相关文献5—8篇；整理研究变量、数据来源和主要结论；下载指数和居民消费数据；录入Excel并标记缺失值。","checks":[0,1],unlockAt:0},
   {id:"exam",title:"考研二战倒计时",subtitle:"已结束两年",timestamp:"两年前",content:"第二次考研，第214天。今天不要想结果，只把这一页做完。",unlockAt:0},
   {id:"cloud",title:"傍晚六点十二分",subtitle:"日记",timestamp:"2022年5月18日",content:"云从宿舍楼后面慢慢翻过去，最下面是粉的，上面还是很亮。风把树叶吹得一阵深一阵浅，猫在车底只露出一截尾巴。",unlockAt:1},
   {id:"oc",title:"明天会有 OC 吗",subtitle:"未分类",timestamp:"昨晚23:41",content:"明天会有 OC 吗。",unlockAt:1},
@@ -240,12 +240,15 @@ Object.assign(APP_DATA,{
   {id:"sleep",title:"如何缓解失眠",time:"今天02:08",preview:"导师凌晨消息之后",unlockAt:0,user:"导师总在凌晨发消息，我回完之后睡不着怎么办？",answer:"可以先把工作消息设为固定处理时段，并记录睡眠。如果长期影响生活，建议寻求专业帮助。"},
   {id:"polish",title:"没有实习经历如何美化包装",time:"昨天",preview:"简历怎么写",unlockAt:0,user:"我现在研二了，只有一段小外贸公司的实习，其他经历很少，简历怎么写？",answer:"优先写与你目标岗位相关的课程项目、工具能力和具体产出。不要虚构经历，可用任务、方法和结果说明你做过什么。"},
   {id:"bay",title:"大湾区课程作业怎么写进简历",time:"6月14日",preview:"背景—方法—结果",unlockAt:0,user:"怎么把大湾区跨境电商发展调研的课程作业写进简历？",answer:"可以按“背景—方法—结果”改写：说明行业背景、你负责的问卷与数据整理环节，再量化有效问卷数量和课程评价。"},
-  {id:"care",title:"猫和老人健康问题",time:"5月20日",preview:"猫咪呕吐；老人血压160",unlockAt:1,user:"猫咪频繁呕吐怎么办？老人血压160严重吗？",answer:"猫咪持续呕吐应尽快就医；老人血压明显偏高，若伴随不适应及时就诊，并持续监测。"},
-  {id:"curious",title:"花、云和颜色",time:"5月18日",preview:"这种花叫什么",unlockAt:1,user:"这种花叫什么？傍晚的云有学名吗？这里该用什么颜色？",answer:"可以分别记录花的叶形、云层高度与光线方向；颜色先从你实际看到的明暗关系开始。"}
+  {id:"care",title:"猫咪频繁呕吐怎么办",time:"5月20日",preview:"猫咪最近总是吐",unlockAt:1,user:"猫咪频繁呕吐怎么办？",answer:"如果持续呕吐、精神不振或无法进食，应尽快就医，并记录呕吐频率与食物变化。"},
+  {id:"careBlood",title:"老人血压160严重吗",time:"5月20日",preview:"需要马上去医院吗",unlockAt:1,user:"老人血压160严重吗？",answer:"血压明显偏高，需要安静休息后复测。若伴随头痛、胸闷等不适，应及时就诊。"},
+  {id:"curious",title:"这种花叫什么",time:"5月18日",preview:"路边看到的小花",unlockAt:1,user:"这种花叫什么？",answer:"可以拍清楚花朵、叶片和茎部，再结合开花地点与季节进行辨认。"},
+  {id:"curiousCloud",title:"傍晚的云有学名吗",time:"5月18日",preview:"想知道云的名字",unlockAt:1,user:"傍晚的云有学名吗？",answer:"云的分类主要依据形态和高度。可以拍下完整天空，并记录当时的天气与时间来判断。"},
+  {id:"curiousColor",title:"这里该用什么颜色",time:"5月18日",preview:"画面颜色怎么选",unlockAt:1,user:"这里该用什么颜色？",answer:"先观察真实光线里的明暗和冷暖关系，再选择最接近你当时感受的颜色。"}
  ],
  shopping:[
-  {id:"suit",title:"面试西装",subtitle:"已退货",price:"-¥299.00",timestamp:"6月12日",address:"宿舍",content:"试穿后申请退货。",unlockAt:0},
-  {id:"examBooks",title:"考研资料",subtitle:"已签收",price:"¥186.40",timestamp:"两年前",address:"家",content:"应用经济学考研真题和笔记。",unlockAt:0},
+  {id:"suit",title:"商务西装套装",spec:"尺码：M｜颜色：黑色",price:"-¥299.00",timestamp:"6月12日",statusLabel:"退货",statusType:"refund",bottomText:"退款成功",unlockAt:0},
+  {id:"examBooks",title:"考研资料",spec:"应用经济学考研真题和笔记",price:"¥186.40",timestamp:"两年前",statusLabel:"已签收",statusType:"done",unlockAt:0},
   {id:"catFood",title:"猫粮与肉罐头",subtitle:"定期购买",price:"¥128.00",timestamp:"每月",address:"梧桐苑",content:"购物车里还有一箱未付款。",unlockAt:1},
   {id:"monitor",title:"大字体血压计",subtitle:"已签收",price:"¥169.00",timestamp:"5月08日",address:"王奶奶",content:"大字体、大音量款。",unlockAt:1},
   {id:"paint",title:"水彩与画纸",subtitle:"部分仍在购物车",price:"¥236.00",timestamp:"4月12日",address:"宿舍",content:"买了一部分，还有几盒彩色颜料没舍得付款。",unlockAt:1}
@@ -259,12 +262,10 @@ Object.assign(APP_DATA,{
  ]
 });
 const DATA=APP_DATA;
-const REQUIRED_FIELDS_THRESHOLD=4;
 const DOSSIER_SECTIONS=[
  {id:"education",label:"教育经历",description:"学校与学历",phase:0},
  {id:"internship",label:"实习经历",description:"工作与实习证明",phase:0},
  {id:"projects",label:"项目及比赛经历",description:"课程项目、比赛与研究",phase:0},
- {id:"skills",label:"技能",description:"语言、数据与办公工具",phase:0},
  {id:"personal",label:"个人信息",description:"等待后续补充",phase:1,optional:true},
  {id:"kindness",label:"她的善意",description:"她为别人具体做过的事",phase:1},
  {id:"friends",label:"她的朋友",description:"持续存在的关系",phase:1},
@@ -276,7 +277,6 @@ const DOSSIER_FIELDS=[
  {id:"educationFact",label:"教育经历",category:"education",unlockAt:0},
  {id:"internshipFact",label:"实习经历",category:"internship",unlockAt:0},
  {id:"projectFact",label:"项目及比赛经历",category:"projects",unlockAt:0},
- {id:"skillFact",label:"技能",category:"skills",unlockAt:0},
  {id:"kindnessFact",label:"她的善意",category:"kindness",unlockAt:1},
  {id:"friendsFact",label:"她的朋友",category:"friends",unlockAt:1},
  {id:"caresFact",label:"她在意的",category:"cares",unlockAt:1},
@@ -371,8 +371,11 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-doubao-sleep":{title:"如何缓解失眠",content:"失眠、焦虑和压力。",fields:[]},
  "archive-doubao-polish":{title:"没有实习经历如何包装",content:"求职迷茫与压力。",fields:[]},
  "archive-doubao-bay":{title:"大湾区课程作业",content:"粤港澳大湾区跨境电商发展调研｜课程小组项目（2024.09–2024.12）",fields:["projectFact"]},
- "archive-doubao-care":{title:"猫和老人健康问题",content:"猫咪呕吐、老人血压160。",archiveContent:"她的心思，总是牵挂在她所照顾的人和动物身上。",fields:["kindnessFact"]},
- "archive-doubao-curious":{title:"花、云和颜色",content:"这种花叫什么、云的学名、这里用什么颜色。",archiveContent:"她对世界始终保持着孩子般的好奇心。",fields:["caresFact"]},
+ "archive-doubao-care":{title:"猫咪频繁呕吐怎么办",content:"她在查询猫咪频繁呕吐的问题。",archiveContent:"她的心思，总是牵挂在她所照顾的人和动物身上。",fields:["kindnessFact"]},
+ "archive-doubao-careBlood":{title:"老人血压160严重吗",content:"她在查询老人血压偏高是否需要就医。",archiveContent:"她的心思，总是牵挂在她所照顾的人和动物身上。",fields:["kindnessFact"]},
+ "archive-doubao-curious":{title:"这种花叫什么",content:"她在查询路边小花的名称。",archiveContent:"她对世界始终保持着孩子般的好奇心。",fields:["caresFact"]},
+ "archive-doubao-curiousCloud":{title:"傍晚的云有学名吗",content:"她在查询傍晚云层的名称。",archiveContent:"她对世界始终保持着孩子般的好奇心。",fields:["caresFact"]},
+ "archive-doubao-curiousColor":{title:"这里该用什么颜色",content:"她在思考画面应该使用什么颜色。",archiveContent:"她对世界始终保持着孩子般的好奇心。",fields:["caresFact"]},
  "archive-shopping-suit":{title:"面试西装退货",content:"买来又退掉的面试西装。",fields:[]},
  "archive-shopping-examBooks":{title:"考研资料",content:"二战时购买的考研资料。",fields:[]},
  "archive-shopping-catFood":{title:"猫粮与肉罐头",content:"定期购买，购物车里还有一箱未付款。",archiveContent:"她习惯用具体的行动，默默照顾着生活中重要的人和动物。",fields:["kindnessFact"]},
@@ -384,7 +387,10 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-transfers-catVet":{title:"给猫看病200元",content:"宠物医院支出。",archiveContent:"她会为一只与自己无关的生命，承担起责任。",fields:["kindnessFact"]},
  "archive-transfers-groceries":{title:"替王奶奶买菜",content:"菜市场支出。",archiveContent:"她把邻里之间的关照，活成了日常的一部分。",fields:["kindnessFact"]}
 });
-const state={unlocked:false,introSeen:false,tutorialWelcomeSeen:false,tutorialEndNoticeSeen:false,tutorialStep:0,tutorialDone:false,tutorialModal:false,app:null,view:null,photoTab:"library",photoOrigin:"library",clues:[],archiveOpen:false,dossier:false,reveal:false,revealPending:false,ending:false,pin:"",unlockStage:0,dossierValues:{},evidenceAssignments:{},selectedEvidence:null,pendingArchive:null,lastAccuracy:null,newFieldCount:0,submitMessage:"",formError:"",formAlert:false,commNotice:false,confirmSubmit:false,seenStages:{},submissionCount:0,failCount:0,curatorMessages:[],curatorTyping:false,curatorChoice:false,curatorChoiceMode:"",curatorSilent:false,curatorCanContinue:false,curatorRun:0,unusedEvidence:[],momBanner:false,momBannerPhase:"",momNotificationIndex:0,momNoticeRun:0,momFinal:false};
+function freshGameState(){return {unlocked:false,introSeen:false,tutorialWelcomeSeen:false,tutorialEndNoticeSeen:false,tutorialStep:0,tutorialDone:false,tutorialModal:false,app:null,view:null,photoTab:"library",photoOrigin:"library",clues:[],archiveOpen:false,dossier:false,reveal:false,revealPending:false,ending:false,endingScheduled:false,endingVisible:false,pin:"",unlockStage:0,dossierValues:{},evidenceAssignments:{},selectedEvidence:null,pendingArchive:null,lastAccuracy:null,newFieldCount:0,submitMessage:"",formError:"",formAlert:false,commNotice:false,confirmSubmit:false,seenStages:{},submissionCount:0,failCount:0,curatorMessages:[],curatorTyping:false,curatorChoice:false,curatorChoiceMode:"",curatorSilent:false,curatorCanContinue:false,curatorRun:0,unusedEvidence:[],momBanner:false,momBannerPhase:"",momNotificationIndex:0,momNoticeRun:0,momFinal:false}}
+const state=freshGameState();
+let endingTimer=null;
+let endingSequence=0;
 const $=s=>document.querySelector(s);
 const currentTime=()=>"02:17";
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -403,7 +409,7 @@ function collectedEvidence(){return state.clues.filter(id=>EVIDENCE_LIBRARY[id])
 function evidenceText(item){return state.unlockStage===0?(item.humanContent||item.content):(item.archiveContent||item.content)}
 const APP_ARCHIVE_FIELDS={
  wechat:["internFact","helped","privateFact"],photos:["eduFact","internFact","attention","lasting","privateFact"],
- doubao:["skillFact","attention","privateFact"],directhire:["eduFact","internFact","planFact"],
+ doubao:["attention","privateFact"],directhire:["eduFact","internFact","planFact"],
  calendar:["planFact","helped","lasting"],notes:["eduFact","planFact","attention","privateFact"],
  settings:["attention","privateFact"],shopping:["lasting"],delivery:["privateFact"],alarms:["privateFact"]
 };
@@ -436,6 +442,10 @@ function clue(){return ""}
 function visibleData(key){return (APP_DATA[key]||[]).filter(item=>(item.unlockAt||0)<=state.unlockStage)}
 function render(){
   const p=$("#phone");
+  if(state.endingVisible){
+   if(!p.querySelector(".ending-overlay"))p.insertAdjacentHTML("beforeend",endingHTML());
+   bindEnding();return;
+  }
   if(!state.unlocked){p.innerHTML=lockHTML();bindLock();return}
 	if(!state.introSeen){p.innerHTML=introHTML();bindIntro();return}
 	if(!state.app){p.innerHTML=homeHTML();bindHome();mountGlobalArchive();mountPersistentArchiveToggle();mountTutorialUI();return}
@@ -443,6 +453,32 @@ function render(){
   if(state.app!=="dossierApp")mountGlobalArchive();
   mountPersistentArchiveToggle();
   mountTutorialUI();
+}
+function endingHTML(){
+ const quote="一份简历能装下的，从来不是一个完整的人。";
+ const letters=Array.from(quote).map((char,index)=>`<span style="--ending-letter:${index}">${char===" "?"&nbsp;":esc(char)}</span>`).join("");
+ return `<section class="ending-overlay"><div class="ending-copy"><h1>游戏结束</h1><p aria-label="${esc(quote)}">${letters}</p><button id="restartGame">重新开始</button></div></section>`;
+}
+function bindEnding(){
+ const restart=$("#restartGame");if(!restart)return;
+ restart.onclick=()=>{
+  endingSequence++;
+  clearTimeout(endingTimer);endingTimer=null;
+  Object.keys(state).forEach(key=>delete state[key]);
+  Object.assign(state,freshGameState());
+  render();fitPortraitViewport();
+ };
+}
+function scheduleEnding(){
+ if(state.endingScheduled||state.endingVisible)return;
+ state.endingScheduled=true;
+ state.ending=true;
+ const sequence=++endingSequence;
+ endingTimer=setTimeout(()=>{
+  if(sequence!==endingSequence)return;
+  state.endingVisible=true;
+  render();
+ },5000);
 }
 function introHTML(){return `<section class="screen intro-screen"><div class="intro-card"><small>明天会有 OC 吗</small><h1>帮张小鱼<br>完成一份简历</h1><p>张小鱼是一个研二的学生，最近正在忙着找工作。看看她的手机，长按收藏重要的信息，完成她的简历吧～</p><button id="enterPhone">查看她的手机</button></div></section>`}
 function bindIntro(){$("#enterPhone").onclick=()=>{state.introSeen=true;render()}}
@@ -527,7 +563,7 @@ function lockHTML(){return `<button class="screen hello-screen" id="helloStart">
 function bindLock(){$("#helloStart").onclick=()=>{state.unlocked=true;render()}}
 const APPS=[
  ["dossierApp","交简历","档","dossier-app-icon"],["wechat","信息","微","wechat","1"],["photos","相册","✺","photos"],
- ["notes","备忘录","≡","notes"],["doubao","AI 助手","✦","doubao"],["shopping","网购","购","shopping"],["transfers","钱包","¥","transfers"]
+ ["notes","备忘录","≡","notes"],["doubao","AI 助手","✦","doubao"],["shopping","网购","购","shopping"],["transfers","花吧","¥","transfers"]
 ];
 const INACTIVE_APPS=[];
 const PLACEHOLDER_APPS={};
@@ -561,10 +597,10 @@ function appHTML(){
  if(state.app==="wechat")return wechatHTML();
  if(state.app==="photos")return photosHTML();
  if(state.app==="doubao")return aiHTML();
- if(state.app==="shopping")return recordsHTML("网购","shopping","▣");
+ if(state.app==="shopping")return shoppingHTML();
  if(state.app==="calls")return recordsHTML("电话","calls","☎");
  if(state.app==="delivery")return recordsHTML("饱了么","delivery","餐");
- if(state.app==="transfers")return recordsHTML("钱包","transfers","¥");
+ if(state.app==="transfers")return recordsHTML("花吧","transfers","¥");
  if(state.app==="calendar")return calendarHTML();
  if(state.app==="browser")return browserHTML();
  if(state.app==="campus")return recordsHTML("校园通","campus","校");
@@ -598,7 +634,7 @@ function wechatHTML(){
   const typing=state.curatorTyping?messageLineHTML(`<div class="bubble typing-bubble" aria-label="对方正在输入"><i></i><i></i><i></i></div>`,"them","curator"):"";
   const choice=state.curatorChoice?`<button class="curator-choice" id="curatorChoice">${state.curatorChoiceMode==="final"?"好了好了馆长":"不是投简历吗"}</button>`:"";
   const silent=state.curatorCanContinue?`<button class="silent-hint action" id="curatorContinue">返回档案继续调整</button>`:state.curatorSilent?`<div class="silent-hint">请稍候…</div>`:"";
-  const mom=state.momBanner?`<button class="mom-banner ${state.momBannerPhase==="leaving"?"leaving":""}" id="momBanner"><b></b><span>${esc(MOM_NOTIFICATION_MESSAGES[state.momNotificationIndex]||"")}</span></button>`:"";
+  const mom=state.momBanner?`<button class="mom-banner ${state.momBannerPhase==="leaving"?"leaving":""}" id="momBanner"><b>妈</b><span><strong>妈妈</strong><em>${esc(MOM_NOTIFICATION_MESSAGES[state.momNotificationIndex]||"")}</em></span></button>`:"";
   return shell("Boss",`${mom}<div class="curator-thread"><div class="chat-date">0079412 · 归档对话</div>${messages}${typing}${choice}${silent}${state.commNotice?`<div class="comm-notice">天堂档案员禁止与人间通讯。</div>`:""}<button class="dead-input" id="blockedInput" aria-label="无法输入">输入消息</button></div>`,"curator-screen");
  }
  const c=APP_DATA.chats.find(x=>x.id===state.view);
@@ -646,31 +682,75 @@ function photosHTML(){
   :allPhotos.filter(photo=>(photo.album||"library")===state.photoOrigin);
  const currentIndex=Math.max(0,source.findIndex(photo=>String(photo.id)===String(item.id)));
  const image=item.src?`<img src="${esc(item.src)}" alt="${esc(item.title)}">`:`<span class="ios-photo-placeholder ${item.cls||""}">${esc(item.title)}</span>`;
- return shell(item.date,`<div class="ios-photo-detail"><button class="photo-detail-more" aria-label="更多操作">•••</button><div class="photo-detail-stage"><button class="photo-detail-image" ${archiveAttrs("photos",item.id,"image",item.title,item.desc)}>${image}</button></div><div class="photo-detail-caption"><b>${esc(item.title)}</b><small>${esc(item.date)} · ${esc(item.place)}</small><p>${esc(item.desc)}</p></div><div class="photo-detail-controls"><button data-photo-nav="${currentIndex-1}" ${currentIndex<=0?"disabled":""} aria-label="上一张">‹</button><button data-photo-nav="${currentIndex+1}" ${currentIndex>=source.length-1?"disabled":""} aria-label="下一张">›</button></div></div>`,"photo-detail-screen");
+ return shell(item.date,`<div class="ios-photo-detail"><button class="photo-detail-more" aria-label="更多操作">•••</button><div class="photo-detail-stage"><button class="photo-detail-image" ${archiveAttrs("photos",item.id,"image",item.title,item.desc)}>${image}</button></div><div class="photo-detail-caption"><b>${esc(item.title)}</b><small>${esc(item.date)} · ${esc(item.place)}</small>${item.desc?`<p>${esc(item.desc)}</p>`:""}</div><div class="photo-detail-controls"><button data-photo-nav="${currentIndex-1}" ${currentIndex<=0?"disabled":""} aria-label="上一张">‹</button><button data-photo-nav="${currentIndex+1}" ${currentIndex>=source.length-1?"disabled":""} aria-label="下一张">›</button></div></div>`,"photo-detail-screen");
 }
 function aiHTML(){
  const history=visibleData("ai");
- if(!state.view)return shell("AI 助手",`<div class="ai-hero"><div class="ai-logo">✦</div><h1>AI 助手</h1><p>有什么可以帮你</p><div class="search" style="margin:22px 0 0">输入问题…</div></div><div class="history"><h3>历史对话</h3>${history.map(h=>`<button class="history-entry" data-ai="${h.id}"><div><b>${h.title}</b><small>${h.preview}</small></div><time>${h.time}</time></button>`).join("")}</div>`);
+ if(!state.view)return shell("",`<div class="ai-dashboard"><header class="ai-profile"><button aria-label="菜单">≡</button><span><small>你好，</small><b>张小鱼</b></span><i></i></header><section class="ai-welcome"><small>AI ASSISTANT</small><h1>今天想聊点<br>什么？</h1></section><div class="ai-actions"><button class="primary-ai-action"><i>◉</i><span>和 AI<br>聊一聊</span><b>↗</b></button><div><button><i>◎</i><span>继续对话</span><b>↗</b></button><button><i>▧</i><span>图片提问</span><b>↗</b></button></div></div><section class="ai-history"><header><h2>历史记录</h2><small>查看全部</small></header>${history.map((item,index)=>`<button class="ai-history-row tone-${index%3}" data-ai="${item.id}"><i>${index%3===0?"◉":index%3===1?"◎":"▧"}</i><span><b>${esc(item.title)}</b><small>${esc(item.preview)}</small></span><time>${esc(item.time)}</time><em>⋮</em></button>`).join("")}</section></div>`,"ai-screen");
  const item=APP_DATA.ai.find(h=>h.id===state.view);
- return shell("芝麻",`<div class="ai-thread"><button class="bubble archive-info ai-user" ${archiveAttrs("doubao",item.id,"question",item.title,item.user)}>${esc(item.user)}</button><button class="ai-answer archive-info" ${archiveAttrs("doubao",item.id,"answer",item.title+" · AI 回复",item.answer)}>${esc(item.answer)}</button></div>`);
+ return shell("AI 助手",`<div class="ai-conversation"><header><small>当前对话</small><h1>${esc(item.title)}</h1><time>${esc(item.time)}</time></header><div class="ai-chat-label">你</div><button class="ai-chat-card ai-chat-user archive-info" ${archiveAttrs("doubao",item.id,"question",item.title,item.user)}>${esc(item.user)}</button><div class="ai-chat-label bot">AI 助手</div><button class="ai-chat-card ai-chat-answer archive-info" ${archiveAttrs("doubao",item.id,"answer",item.title+" · AI 回复",item.answer)}>${esc(item.answer)}</button><div class="ai-compose"><span>继续输入问题…</span><button>↑</button></div></div>`,"ai-screen ai-detail-screen");
 }
 function notesHTML(){
  const visible=visibleData("notes");
  if(state.view){
   const item=APP_DATA.notes.find(x=>x.id===state.view);
   const body=item.noChecklist?`<div class="note-plain">${esc(item.content)}</div>`:(()=>{const sentences=item.content.split(/[。！？；]/).filter(s=>s.trim()).map(s=>s.trim());const checks=item.checks||[];return sentences.map((s,i)=>`<div class="checklist-item"><span class="check-dot${checks.includes(i)?" checked":""}">✓</span><span>${esc(s)}</span></div>`).join("");})();
-  return shell(item.title,`<div class="note-detail"><h1>${esc(item.title)}</h1><div class="note-date">${esc(item.timestamp)}</div>${body}</div>`);
+  return shell(item.title,`<button class="note-detail archive-info" ${archiveAttrs("notes",item.id,"note",item.title,item.content)}><h1>${esc(item.title)}</h1><div class="note-date">${esc(item.timestamp)}</div>${body}</button>`);
  }
  const preview=(text,n=35)=>text.length>n?text.slice(0,n)+"…":text;
- return shell("随记",`<div class="notes-list"><div class="notes-count">${visible.length} 个备忘录</div>${visible.map(item=>`<button class="notes-card" data-record="${item.id}"><h3>${esc(item.title)}</h3><div class="notes-date">${esc(item.timestamp)}</div><div class="notes-preview">${esc(preview(item.content))}</div></button>`).join("")}</div>`);
+ return shell("随记",`<div class="notes-list"><div class="notes-count">${visible.length} 个备忘录</div>${visible.map(item=>`<button class="notes-card archive-heart-host" data-record="${item.id}" ${archiveAttrs("notes",item.id,"card",item.title,item.content)}><h3>${esc(item.title)}</h3><div class="notes-date">${esc(item.timestamp)}</div><div class="notes-preview">${esc(preview(item.content))}</div></button>`).join("")}</div>`);
 }
+function walletRecordIcon(item){return item.id==="rent"?"⌂":item.id==="tuition"?"▤":item.id==="huabei"?"◫":item.id==="catVet"?"✚":"⌁"}
 function recordDetailHTML(title,key,symbol){
  const item=APP_DATA[key].find(x=>x.id===state.view);
  const appId=state.app;
+ if(key==="transfers"){
+  const completeRecord=`时间：${item.timestamp}；金额：${item.price||""}；转账备注：${item.content}`;
+  return shell("交易详情",`<div class="wallet-detail-page"><header class="wallet-detail-heading"><span class="wallet-record-icon">${walletRecordIcon(item)}</span><div><small>${esc(item.subtitle||"交易记录")}</small><h1>${esc(item.title)}</h1></div></header><section class="wallet-detail-card"><small>交易金额</small><strong>${esc(item.price||"")}</strong><span>已完成</span></section><button class="wallet-detail-fields archive-info" ${archiveAttrs(appId,item.id,"record",item.title,completeRecord)}><span class="wallet-detail-field"><small>时间</small><b>${esc(item.timestamp)}</b></span><span class="wallet-detail-field"><small>金额</small><b>${esc(item.price||"")}</b></span><span class="wallet-detail-field"><small>转账备注</small><b>${esc(item.content)}</b></span></button></div>`,"wallet-screen wallet-detail-screen");
+ }
  return shell(title,`<article class="detail-card"><div class="detail-symbol">${symbol}</div><h1>${esc(item.title)}</h1><p>${esc(item.subtitle||"记录详情")}</p><button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"time",item.title+" · 时间",item.timestamp)}><small>时间</small><b>${esc(item.timestamp)}</b></button>${item.price?`<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"price",item.title+" · "+(key==="transfers"?"金额":"价格"),item.price)}><small>${key==="transfers"?"金额":"价格"}</small><b>${esc(item.price)}</b></button>`:""}${item.duration?`<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"duration",item.title+" · 通话时长",item.duration)}><small>通话时长</small><b>${esc(item.duration)}</b></button>`:""}${item.address?`<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"address",item.title+" · 地址",item.address)}><small>${key==="delivery"?"送达地址":"收货地址"}</small><b>${esc(item.address)}</b></button>`:""}<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"content",item.title,item.content)}><small>${key==="transfers"?"转账备注":key==="delivery"?"餐品明细":key==="shopping"?"商品信息":"记录信息"}</small><b>${esc(item.content)}</b></button></article>`);
+}
+function shoppingHTML(){
+ const orders=visibleData("shopping");
+ if(state.view){
+  const item=APP_DATA.shopping.find(x=>x.id===state.view);
+  if(item.id==="suit"){
+   const lines=[
+    {label:"退回银行卡",value:"¥299",bold:false},
+    {label:"返还优惠",value:"¥0.96",bold:false},
+    {label:"运费保障",value:"",bold:false}
+   ];
+   const rows=lines.map(l=>`<div class="order-detail-row"><span>${esc(l.label)}</span><span class="${l.bold?"order-detail-bold":""}">${esc(l.value)}</span></div>`).join("");
+   return shell("订单详情",`<div class="order-detail-page"><div class="order-detail-status refund">退款成功</div>${rows}</div>`);
+  }
+  if(item.id==="examBooks"){
+   const lines=[
+    {label:"商品总价",value:"¥186.4",bold:false},
+    {label:"店铺优惠",value:"-¥7.9",bold:false},
+    {label:"平台优惠",value:"-¥10",bold:false},
+    {label:"实际付款",value:"¥168.5",bold:true}
+   ];
+   const rows=lines.map(l=>`<div class="order-detail-row"><span>${esc(l.label)}</span><span class="${l.bold?"order-detail-bold":""}">${esc(l.value)}</span></div>`).join("");
+   return shell("订单详情",`<div class="order-detail-page"><div class="order-detail-status done">已签收</div>${rows}</div>`);
+  }
+  return recordDetailHTML("网购","shopping","▣");
+ }
+ const cards=orders.map(item=>{
+  const tag=item.statusLabel?`<span class="order-status-tag ${item.statusType||""}">${esc(item.statusLabel)}</span>`:"";
+  const bottom=item.bottomText?`<div class="order-bottom">${esc(item.bottomText)}</div>`:"";
+  const spec=item.spec?`<div class="order-spec">${esc(item.spec)}</div>`:"";
+  const imgIcon=item.id==="suit"?"👔":item.id==="examBooks"?"📚":"📦";
+  const archiveAttr=archiveAttrs("shopping",item.id,"order",item.title,item.price);
+  return `<button class="order-card archive-heart-host" data-record="${item.id}" ${archiveAttr}><div class="order-img">${imgIcon}</div><div class="order-info"><div class="order-name">${esc(item.title)}</div>${spec}<div class="order-price">${esc(item.price)}</div>${bottom}</div>${tag}</button>`;
+ }).join("");
+ return shell("网购",`<div class="order-list"><div class="order-section-title">我的订单</div>${cards}</div>`);
 }
 function recordsHTML(title,key,symbol){
  if(state.view)return recordDetailHTML(title,key,symbol);
+ if(key==="transfers"){
+  const records=visibleData(key);
+  return shell("",`<div class="wallet-page"><header class="wallet-profile"><span class="wallet-avatar"></span><span><small>早上好</small><b>张小鱼</b></span><button aria-label="通知">♢<i></i></button></header><h1>我的花吧</h1><section class="wallet-balance-card"><div class="wallet-card-top"><span>Finlight</span><b>花吧</b></div><small>本月支出</small><strong>¥10,412.40</strong><div class="wallet-card-bottom"><span>••••　••••　••••　6925</span><small>更新于<br>6月17日</small></div></section><div class="wallet-actions"><button><i>↗</i><span>转账</span></button><button><i>↙</i><span>收款</span></button><button><i>▣</i><span>充值</span></button></div><section class="wallet-transactions"><header><h2>交易记录</h2><div class="wallet-period"><button class="active">按月</button><button>按天</button></div></header>${records.map(item=>`<button class="wallet-transaction-row" data-record="${item.id}"><span class="wallet-record-icon">${walletRecordIcon(item)}</span><span class="wallet-record-copy"><b>${esc(item.title)}</b><small>${esc(item.subtitle)} · ${esc(item.timestamp)}</small></span><strong class="${item.status||""}">${esc(item.price||"")}</strong></button>`).join("")}</section></div>`,"wallet-screen");
+ }
  const summary=key==="transfers"?`<div class="detail-card" style="margin-bottom:8px"><small>账单统计</small><h2>本月支出 ¥10,412.40</h2><div class="resume-tabs" style="margin:10px 0 0"><button class="active">按月</button><button>按天</button></div></div>`:"";
  const hideRecordIcon=key==="shopping"||key==="transfers";
  return shell(title,`${summary}<div class="record-list"><div class="section-label">最近记录</div>${visibleData(key).map(item=>`<button class="record-row ${hideRecordIcon?"plain-record-row":""}" data-record="${item.id}">${hideRecordIcon?"":`<span class="record-icon">${item.direction||symbol}</span>`}<span class="record-copy"><b>${esc(item.title)}</b><small>${esc(item.subtitle)}${item.duration?" · "+esc(item.duration):""}</small></span><span class="record-meta"><time>${esc(item.timestamp)}</time>${item.price?`<strong class="${item.status||""}">${esc(item.price)}</strong>`:""}</span></button>`).join("")}</div>`);
@@ -812,7 +892,7 @@ function beginCuratorSubmission(count,complete){
    {text:"名单上的人不是 0079421 吗？"},
    {text:"你今天怎么回事...差点搞错了！"},
    {text:"张小鱼还活着呢！",pauseBefore:850}
-  ],()=>{state.ending=true;state.curatorSilent=false;renderCurator()});
+  ],()=>{state.curatorSilent=false;renderCurator();scheduleEnding()});
  }else{
   queueCuratorReplies([
    {text:"还是有几处对不上"},{text:"有些东西放错地方了"},{text:"再看看吧"}
@@ -965,7 +1045,11 @@ function bindArchiveHearts(){
   const onEnd=event=>{
    if(event.pointerId!==pointerId)return;
    clearTimeout(timer);
-   if(!active){clearState();return}
+   if(!active){
+    const dist=Math.hypot(event.clientX-startX,event.clientY-startY);
+    if(dist<10&&el.dataset.record){openInformation(state.app,el.dataset.record)}
+    clearState();return;
+   }
    finish(event.clientX,event.clientY);
   };
   const onCancel=event=>{
