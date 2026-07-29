@@ -696,6 +696,44 @@ html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
  }
  .screen{border-radius:inherit}
 }
+/* Chat avatars on both sides */
+.msg-row{display:flex;gap:8px;align-items:flex-start;margin:6px 0;width:100%}
+.msg-row.me{justify-content:flex-end}
+.msg-avatar{width:36px;height:36px;border-radius:50%;background:#b9c9ae;color:#4f694a;display:grid;place-items:center;font-weight:650;font-size:14px;flex-shrink:0;border:1.4px solid #7f9697;box-shadow:2px 2px 0 #8a74622b}
+.msg-avatar.me-avatar{background:#f0d9a0;color:#594636;border-color:#b9966f}
+.msg-row .bubble{max-width:calc(100% - 52px)}
+.msg-row .bubble small.timestamp{display:none!important}
+/* Centered time divider between message groups */
+.time-divider{text-align:center;width:100%;font-size:11px;color:#aaa;margin:14px 0 8px;padding:3px 0}
+/* WeChat official account article card */
+.mp-article-card{background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e6dfd2;margin:5px 0;width:85%;max-width:260px;box-shadow:0 1px 3px #0001;text-align:left}
+.mp-article-cover{height:110px;background:linear-gradient(135deg,#e8ead5,#f7f2e4);display:grid;place-items:center;color:#b3a87c;font-size:42px;position:relative}
+.mp-article-cover:after{content:"健康养生";position:absolute;bottom:8px;left:10px;background:#85b88b;color:#fff;font-size:9px;padding:2px 8px;border-radius:3px}
+.mp-article-body{padding:10px 12px}
+.mp-article-title{font-size:14px;font-weight:650;line-height:1.4;color:#333;margin-bottom:6px}
+.mp-article-source{font-size:10px;color:#999;display:flex;align-items:center;gap:4px}
+.mp-article-source i{display:inline-block;width:14px;height:14px;border-radius:50%;background:#b9c9ae;flex-shrink:0}
+/* Notes app - card list + checklist detail */
+.notes-list{padding:8px 0 28px}
+.notes-count{padding:6px 18px 10px;color:#888;font-size:12px}
+.notes-card{width:100%;background:#fff;text-align:left;padding:15px 18px;border-bottom:1px solid #eee;display:block;border-radius:0}
+.notes-card:first-child{border-radius:14px 14px 0 0}
+.notes-card:last-child{border-radius:0 0 14px 14px;border-bottom:0}
+.notes-card:only-child{border-radius:14px}
+.notes-card:active{background:#f5f5f5}
+.notes-list{padding:8px 14px 28px}
+.notes-count{padding:6px 4px 10px}
+.notes-card h3{font-size:16px;font-weight:650;margin:0 0 5px;color:#222}
+.notes-card .notes-date{font-size:12px;color:#999;margin-bottom:6px}
+.notes-card .notes-preview{font-size:13px;color:#777;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Note detail */
+.note-detail{background:#fff;min-height:100%;padding:22px 20px 40px}
+.note-detail h1{font-size:23px;font-weight:700;margin:0 0 5px;color:#111}
+.note-detail .note-date{font-size:13px;color:#999;margin-bottom:20px}
+.checklist-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:15px;line-height:1.6;color:#333}
+.checklist-item:last-child{border-bottom:0}
+.check-dot{width:20px;height:20px;border:1.5px solid #ccc;border-radius:50%;flex-shrink:0;margin-top:2px;display:grid;place-items:center;font-size:10px;color:transparent}
+.check-dot.checked{border-color:#4a90d9;background:#4a90d9;color:#fff}
 </style>
 </head>
 <body>
@@ -824,15 +862,15 @@ const APP_DATA={
   {id:"alarm5",title:"02:40",subtitle:"抢早鸟票 · 仅一次 · 已关闭",timestamp:"4月30日",content:"提醒事项：抢早鸟票；闹钟在三分钟后被删除",unlockAt:2}
  ],
  notes:[
-  {id:"note0",title:"工作提醒",subtitle:"店内通知抄录",timestamp:"6月13日 07:12",content:"本月迟到 2 次，收银差额 1 次。店长说再出现一次会扣全勤。夜班不能成为理由。",unlockAt:0},
+  {id:"note0",title:"工作提醒",subtitle:"店内通知抄录",timestamp:"6月13日 07:12",content:"本月迟到 2 次，收银差额 1 次。店长说再出现一次会扣全勤。夜班不能成为理由。","checks":[0],unlockAt:0},
   {id:"note1",title:"月亮和六便士",subtitle:"读书笔记",timestamp:"6月12日 03:26",content:"现实像每天必须擦干净的地板，理想像窗外的月亮。够不到不等于没看见。也许我只能偶尔抬头，但那一眼也是真的。",unlockAt:0},
   {id:"note2",title:"夜班之后",subtitle:"日记",timestamp:"6月3日 07:18",content:"七点交班，坐第一班公交去书店。车上睡过了两站，迟到十二分钟。陈叔没说什么，只把柜台后的椅子往外挪了挪。",unlockAt:1},
   {id:"note3",title:"他们都长大了",subtitle:"日记",timestamp:"5月29日 01:42",content:"妹妹说不想再用我的钱。其实我也没做什么，只是比他们早几年开始赚钱。",unlockAt:2},
-  {id:"note4",title:"今天做错了两次",subtitle:"工作记录",timestamp:"5月24日 07:36",content:"把找零算错，又把预订的书给了别人。顾客投诉得没错。可我听见她说“这种人只能干这个”，还是很生气。最后又是陈叔帮我收拾。",unlockAt:2},
-  {id:"note5",title:"欠陈叔 1,200",subtitle:"账目",timestamp:"5月23日 00:18",content:"妹妹交资料费时向陈叔借的。已经还了 400。每次他装作忘了，我就更不知道怎么开口。",unlockAt:2},
+  {id:"note4",title:"今天做错了两次",subtitle:"工作记录",timestamp:"5月24日 07:36",content:"把找零算错，又把预订的书给了别人。顾客投诉得没错。可我听见她说“这种人只能干这个”，还是很生气。最后又是陈叔帮我收拾。","checks":[0,1],unlockAt:2},
+  {id:"note5",title:"欠陈叔 1,200",subtitle:"账目",timestamp:"5月23日 00:18",content:"妹妹交资料费时向陈叔借的。已经还了 400。每次他装作忘了，我就更不知道怎么开口。","checks":[0],unlockAt:2},
   {id:"note6",title:"关于占便宜",subtitle:"随手记",timestamp:"5月16日 02:51",content:"总爱算满减、拿赠品，好像省下三块钱就赢了生活一次。挺可笑的。可三块钱也够我坐一次公交。",unlockAt:3},
-  {id:"note7",title:"如果不用再为钱发愁",subtitle:"深夜独白",timestamp:"5月10日 03:08",content:"我想睡到自然醒，下午在有阳光的桌边读完一本书。带小雨和小航去看海。也许开一家很小的旧书店，不必很赚钱。",unlockAt:4},
-  {id:"note8",title:"临期饭团",subtitle:"未分类",timestamp:"5月08日 06:54",content:"下班时拿走了两个报损饭团。店长看见了，只说“别让监控拍正脸”。她大概是默许的，可我回家后还是有点心虚。",unlockAt:4}
+  {id:"note7",title:"如果不用再为钱发愁",subtitle:"深夜独白",timestamp:"5月10日 03:08",content:"我想睡到自然醒，下午在有阳光的桌边读完一本书。带小雨和小航去看海。也许开一家很小的旧书店，不必很赚钱。","checks":[1,2],unlockAt:4},
+  {id:"note8",title:"临期饭团",subtitle:"未分类",timestamp:"5月08日 06:54",content:"下班时拿走了两个报损饭团。店长看见了，只说“别让监控拍正脸”。她大概是默许的，可我回家后还是有点心虚。","checks":[0],unlockAt:4}
   ,{id:"note9",title:"新建备忘录",subtitle:"无附加文本",timestamp:"4月02日 11:10",content:"（空白）",unlockAt:0,archiveable:false}
   ,{id:"note10",title:"没有发出去",subtitle:"未完成草稿",timestamp:"3月29日 02:11",content:"其实最近不太顺利。等有结果了再告诉你们。",unlockAt:2}
  ],
@@ -881,9 +919,9 @@ Object.assign(APP_DATA,{
   {id:"delart3",cls:"school",date:"剩余 6 天",place:"最近删除",title:"室友睡着了",desc:"台灯只照亮半张桌子。画得并不精致。",unlockAt:0}
  ],
  notes:[
-  {id:"n1",title:"考研倒计时",subtitle:"已归零",timestamp:"两年前",content:"二战第 214 天。今天不要想结果，只把这一页做完。",unlockAt:0},
-  {id:"n2",title:"论文进度",subtitle:"3 / 11",timestamp:"6月16日",content:"补实验、改图 4、导师批注还剩 8 处。",unlockAt:0},
-  {id:"n3",title:"面试准备",subtitle:"未完成",timestamp:"6月16日 22:10",content:"空白期怎么解释；为什么没有实习；职业规划。",unlockAt:0},
+  {id:"n1",title:"考研倒计时",subtitle:"已归零",timestamp:"两年前",content:"二战第 214 天。今天不要想结果，只把这一页做完。","checks":[0],unlockAt:0},
+  {id:"n2",title:"论文进度",subtitle:"3 / 11",timestamp:"6月16日",content:"补实验、改图 4、导师批注还剩 8 处。","checks":[0,1],unlockAt:0},
+  {id:"n3",title:"面试准备",subtitle:"未完成",timestamp:"6月16日 22:10",content:"空白期怎么解释；为什么没有实习；职业规划。","checks":[0],unlockAt:0},
   {id:"n4",title:"傍晚六点十二分",subtitle:"随手记",timestamp:"2022年5月18日",content:"云从宿舍楼后面慢慢翻过去，最下面是粉的，上面还是很亮。猫在车底只露出一截尾巴。",unlockAt:0},
   {id:"n5",title:"明天会有 OC 吗",subtitle:"未分类",timestamp:"昨晚 23:41",content:"明天会有 OC 吗。",unlockAt:0}
  ],
@@ -1205,8 +1243,22 @@ function wechatHTML(){
  }
  const c=APP_DATA.chats.find(x=>x.id===state.view);
  const all=[...(c.messages||[]),...(c.stageMessages||[]).filter(m=>m.unlockAt<=state.unlockStage)];
- const msgs=all.map((m,i)=>`<button class="bubble archive-info ${m.from==="me"?"me":""}" ${archiveAttrs("wechat",c.id,"message"+i,c.name+" · "+(m.timestamp||"消息"),m.content)}>${esc(m.content)}<small style="display:block;opacity:.45;margin-top:3px">${esc(m.timestamp||"")}</small></button>`).join("");
- return shell(c.name,`<div class="messages"><div class="chat-date">聊天记录</div>${msgs}${c.id==="mom"?`<button class="dead-input" id="blockedInput" aria-label="无法输入">输入消息</button>${state.commNotice?`<div class="comm-notice">天堂档案员禁止与人间通讯。</div>`:""}`:""}</div>`);
+ const avatarChar=c.avatar||c.name.charAt(0);
+ let lastTime=null;
+ const msgs=all.map((m,i)=>{
+  const ts=m.timestamp||"";
+  let timeHeader="";
+  if(ts!==lastTime){timeHeader=`<div class="time-divider">${esc(ts)}</div>`;lastTime=ts;}
+  const isMe=m.from==="me";
+  const attr=archiveAttrs("wechat",c.id,"message"+i,c.name+" · "+(m.timestamp||"消息"),m.content);
+  if(!isMe&&m.content&&m.content.startsWith("养生文章：")){
+   const articleTitle=m.content.replace("养生文章：","");
+   return `${timeHeader}<div class="msg-row"><span class="msg-avatar">${avatarChar}</span><button class="mp-article-card archive-info" ${attr}><div class="mp-article-cover">🌿</div><div class="mp-article-body"><div class="mp-article-title">${esc(articleTitle)}</div><div class="mp-article-source"><i></i> 养生每日推送</div></div></button></div>`;
+  }
+  return `${timeHeader}<div class="msg-row ${isMe?"me":""}">${isMe?"":`<span class="msg-avatar">${avatarChar}</span>`}<button class="bubble archive-info ${isMe?"me":""}" ${attr}>${esc(m.content)}</button>${isMe?`<span class="msg-avatar me-avatar">我</span>`:""}</div>`;
+ }).join("");
+
+ return shell(c.name,`<div class="messages">${msgs}${c.id==="mom"?`<button class="dead-input" id="blockedInput" aria-label="无法输入">输入消息</button>`+"":""}${c.id==="mom"&&state.commNotice?`<div class="comm-notice">天堂档案员禁止与人间通讯。</div>`:""}</div>`);
 }
 function photosHTML(){
  const photos=state.view==="deleted"?visibleData("recentlyDeleted"):visibleData("photos");
@@ -1221,8 +1273,16 @@ function aiHTML(){
  return shell("芝麻",`<div class="ai-thread"><button class="bubble archive-info ai-user" ${archiveAttrs("doubao",item.id,"question",item.title,item.user)}>${esc(item.user)}</button><button class="ai-answer archive-info" ${archiveAttrs("doubao",item.id,"answer",item.title+" · AI 回复",item.answer)}>${esc(item.answer)}</button></div>`);
 }
 function notesHTML(){
- if(state.view){const item=APP_DATA.notes.find(x=>x.id===state.view);return shell("随记",`<article class="note"><small>${esc(item.timestamp)}</small><h1>${esc(item.title)}</h1><button class="archive-detail" ${archiveAttrs("notes",item.id,"content",item.title,item.content)}>${esc(item.content)}</button><p class="hand">${esc(item.subtitle)}</p></article>`)}
- return shell("随记",`<div class="record-list"><div class="section-label">我的随记</div>${visibleData("notes").map(item=>`<button class="record-row" data-record="${item.id}"><span class="record-icon">≡</span><span class="record-copy"><b>${esc(item.title)}</b><small>${esc(item.content)}</small></span><span class="record-meta"><time>${esc(item.timestamp)}</time></span></button>`).join("")}</div>`);
+ const visible=visibleData("notes");
+ if(state.view){
+  const item=APP_DATA.notes.find(x=>x.id===state.view);
+  const sentences=item.content.split(/[。！？；]/).filter(s=>s.trim()).map(s=>s.trim());
+  const checks=item.checks||[];
+  const checklist=sentences.map((s,i)=>`<div class="checklist-item"><span class="check-dot${checks.includes(i)?" checked":""}">✓</span><span>${esc(s)}</span></div>`).join("");
+  return shell(item.title,`<div class="note-detail"><h1>${esc(item.title)}</h1><div class="note-date">${esc(item.timestamp)}</div>${checklist}</div>`);
+ }
+ const preview=(text,n=35)=>text.length>n?text.slice(0,n)+"…":text;
+ return shell("随记",`<div class="notes-list"><div class="notes-count">${visible.length} 个备忘录</div>${visible.map(item=>`<button class="notes-card" data-record="${item.id}"><h3>${esc(item.title)}</h3><div class="notes-date">${esc(item.timestamp)}</div><div class="notes-preview">${esc(preview(item.content))}</div></button>`).join("")}</div>`);
 }
 function recordDetailHTML(title,key,symbol){
  const item=APP_DATA[key].find(x=>x.id===state.view);
