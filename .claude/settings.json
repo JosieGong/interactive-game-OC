@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/bin/**)",
+      "Bash(python3 -c \"print\\(1\\)\")",
+      "Read(//Applications/**)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless --disable-gpu --no-sandbox --window-size=375,812 --virtual-time-budget=4000 --screenshot=/tmp/shot1.png --enable-logging=stderr --v=0 file:///Users/Josie/Desktop/interactive-game-OC/index.html)",
+      "Bash(echo \"exit=$?\")",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --window-size=375,812 --virtual-time-budget=2000 --dump-dom file:///tmp/dbg.html)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --window-size=390,844 --virtual-time-budget=4000 --screenshot=/tmp/s_guide.png file:///Users/Josie/Desktop/interactive-game-OC/index.html)",
+      "Bash(python3 -c \"print\\(__import__\\('PIL.Image',fromlist=['x']\\).open\\('/tmp/s_guide.png'\\).size\\)\")",
+      "Bash(sips -g pixelWidth -g pixelHeight /tmp/s_guide.png)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --virtual-time-budget=2000 --dump-dom file:///tmp/t_end3.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=30000 --dump-dom file:///tmp/t_flow.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=5000 --screenshot=/tmp/final_home.png file:///Users/Josie/Desktop/interactive-game-OC/_t.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=1600 --screenshot=/tmp/final_boot.png file:///Users/Josie/Desktop/interactive-game-OC/index.html)",
+      "Bash(git add *)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=4000 --screenshot=/tmp/check.png --enable-logging=stderr file:///Users/Josie/Desktop/interactive-game-OC/_t.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=4000 --dump-dom file:///Users/Josie/Desktop/interactive-game-OC/_t.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=12000 --dump-dom file:///Users/Josie/Desktop/interactive-game-OC/_t.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=6000 --dump-dom file:///Users/Josie/Desktop/interactive-game-OC/_t.html)"
+    ]
+  }
+}
