@@ -734,6 +734,7 @@ html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
 .checklist-item:last-child{border-bottom:0}
 .check-dot{width:20px;height:20px;border:1.5px solid #ccc;border-radius:50%;flex-shrink:0;margin-top:2px;display:grid;place-items:center;font-size:10px;color:transparent}
 .check-dot.checked{border-color:#4a90d9;background:#4a90d9;color:#fff}
+.note-plain{font-size:15px;line-height:1.8;color:#333;white-space:pre-wrap}
 </style>
 </head>
 <body>
@@ -919,7 +920,7 @@ Object.assign(APP_DATA,{
   {id:"delart3",cls:"school",date:"剩余 6 天",place:"最近删除",title:"室友睡着了",desc:"台灯只照亮半张桌子。画得并不精致。",unlockAt:0}
  ],
  notes:[
-  {id:"n1",title:"考研倒计时",subtitle:"已归零",timestamp:"两年前",content:"二战第 214 天。今天不要想结果，只把这一页做完。","checks":[0],unlockAt:0},
+  {id:"n1",title:"考研倒计时",subtitle:"已归零",timestamp:"两年前",content:"二战第 214 天。今天不要想结果，只把这一页做完。",noChecklist:true,unlockAt:0},
   {id:"n2",title:"论文进度",subtitle:"3 / 11",timestamp:"6月16日",content:"补实验、改图 4、导师批注还剩 8 处。","checks":[0,1],unlockAt:0},
   {id:"n3",title:"面试准备",subtitle:"未完成",timestamp:"6月16日 22:10",content:"空白期怎么解释；为什么没有实习；职业规划。","checks":[0],unlockAt:0},
   {id:"n4",title:"傍晚六点十二分",subtitle:"随手记",timestamp:"2022年5月18日",content:"云从宿舍楼后面慢慢翻过去，最下面是粉的，上面还是很亮。猫在车底只露出一截尾巴。",unlockAt:0},
@@ -1276,10 +1277,8 @@ function notesHTML(){
  const visible=visibleData("notes");
  if(state.view){
   const item=APP_DATA.notes.find(x=>x.id===state.view);
-  const sentences=item.content.split(/[。！？；]/).filter(s=>s.trim()).map(s=>s.trim());
-  const checks=item.checks||[];
-  const checklist=sentences.map((s,i)=>`<div class="checklist-item"><span class="check-dot${checks.includes(i)?" checked":""}">✓</span><span>${esc(s)}</span></div>`).join("");
-  return shell(item.title,`<div class="note-detail"><h1>${esc(item.title)}</h1><div class="note-date">${esc(item.timestamp)}</div>${checklist}</div>`);
+  const body=item.noChecklist?`<div class="note-plain">${esc(item.content)}</div>`:(()=>{const sentences=item.content.split(/[。！？；]/).filter(s=>s.trim()).map(s=>s.trim());const checks=item.checks||[];return sentences.map((s,i)=>`<div class="checklist-item"><span class="check-dot${checks.includes(i)?" checked":""}">✓</span><span>${esc(s)}</span></div>`).join("");})();
+  return shell(item.title,`<div class="note-detail"><h1>${esc(item.title)}</h1><div class="note-date">${esc(item.timestamp)}</div>${body}</div>`);
  }
  const preview=(text,n=35)=>text.length>n?text.slice(0,n)+"…":text;
  return shell("随记",`<div class="notes-list"><div class="notes-count">${visible.length} 个备忘录</div>${visible.map(item=>`<button class="notes-card" data-record="${item.id}"><h3>${esc(item.title)}</h3><div class="notes-date">${esc(item.timestamp)}</div><div class="notes-preview">${esc(preview(item.content))}</div></button>`).join("")}</div>`);
