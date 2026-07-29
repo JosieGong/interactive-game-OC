@@ -326,6 +326,12 @@ button{font-weight:550}
  box-shadow:0 16px 34px #4d392f52,0 5px 12px #76583d35!important;
  will-change:transform;
 }
+.resume-evidence-clone{
+ display:block!important;visibility:visible!important;overflow:hidden;
+ filter:none!important;cursor:grabbing!important;
+}
+.resume-evidence-dragging,.resume-evidence-dragging *{cursor:grabbing!important}
+.evidence-card.drag-source{opacity:.5}
 .evidence-drag-clone.archive-heart-host{position:fixed!important}
 .archive-collect-clone{overflow:hidden!important}
 .global-evidence.collect-drop-active{

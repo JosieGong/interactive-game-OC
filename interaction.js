@@ -1080,28 +1080,35 @@ function bindEvidenceDrag(card){
  };
  const begin=event=>{
   if(dragging)return;
-  dragging=true;startRect=card.getBoundingClientRect();
-  visualScale=startRect.width/card.offsetWidth||1;
-  clone=card.cloneNode(true);
-  clone.removeAttribute("data-evidence");
-  clone.classList.add("evidence-drag-clone");
-  clone.classList.remove("selected","drag-source");
-  Object.assign(clone.style,{left:`${startRect.left}px`,top:`${startRect.top}px`,width:`${card.offsetWidth}px`,height:`${card.offsetHeight}px`,transformOrigin:"top left"});
-  document.body.appendChild(clone);
-  card.classList.add("drag-source");
-  requestAnimationFrame(()=>moveClone(lastX,lastY));
- };
+   dragging=true;startRect=card.getBoundingClientRect();
+   visualScale=startRect.width/card.offsetWidth||1;
+   clone=card.cloneNode(true);
+   clone.removeAttribute("data-evidence");
+   clone.setAttribute("aria-hidden","true");
+   clone.classList.add("evidence-drag-clone","resume-evidence-clone");
+   clone.classList.remove("selected","drag-source");
+   Object.assign(clone.style,{left:`${startRect.left}px`,top:`${startRect.top}px`,width:`${card.offsetWidth}px`,height:`${card.offsetHeight}px`,transformOrigin:"top left"});
+   document.body.appendChild(clone);
+   card.classList.add("drag-source");
+   document.documentElement.classList.add("resume-evidence-dragging");
+   try{card.setPointerCapture?.(pointerId)}catch{}
+   requestAnimationFrame(()=>moveClone(lastX,lastY));
+  };
  const removeGlobalListeners=()=>{
   window.removeEventListener("pointermove",onGlobalMove);
   window.removeEventListener("pointerup",onGlobalEnd);
   window.removeEventListener("pointercancel",onGlobalCancel);
  };
  const clean=()=>{
-  clearTimeout(timer);timer=null;clearTargets();card.classList.remove("drag-source");removeGlobalListeners();
- };
+   clearTimeout(timer);timer=null;clearTargets();card.classList.remove("drag-source");
+   document.documentElement.classList.remove("resume-evidence-dragging");
+   try{if(card.hasPointerCapture?.(pointerId))card.releasePointerCapture(pointerId)}catch{}
+   removeGlobalListeners();
+  };
  card.onpointerdown=event=>{
   if(event.button!==undefined&&event.button!==0)return;
-  pointerId=event.pointerId;
+  if(event.pointerType!=="touch")event.preventDefault();
+   pointerId=event.pointerId;
   startX=lastX=event.clientX;startY=lastY=event.clientY;
   window.addEventListener("pointermove",onGlobalMove,{passive:false});
   window.addEventListener("pointerup",onGlobalEnd);
