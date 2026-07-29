@@ -256,7 +256,7 @@ Object.assign(APP_DATA,{
  transfers:[
   {id:"rent",title:"房租",subtitle:"支出",timestamp:"6月1日",price:"-¥1,800.00",content:"六月房租",status:"out",unlockAt:0},
   {id:"tuition",title:"学费",subtitle:"支出",timestamp:"3月2日",price:"-¥8,000.00",content:"暨广大学学费",status:"out",unlockAt:0},
-  {id:"huabei",title:"花呗最低还款",subtitle:"支出",timestamp:"5月10日",price:"-¥326.00",content:"最低还款",status:"out",unlockAt:0},
+  {id:"huabei",title:"花吧最低还款",subtitle:"支出",timestamp:"5月10日",price:"-¥326.00",content:"最低还款",status:"out",unlockAt:0},
   {id:"catVet",title:"宠物医院",subtitle:"支出",timestamp:"5月16日",price:"-¥200.00",content:"给楼下的猫看病",status:"out",unlockAt:1},
   {id:"groceries",title:"菜市场",subtitle:"支出",timestamp:"5月08日",price:"-¥86.40",content:"替王奶奶买菜",status:"out",unlockAt:1}
  ]
@@ -383,7 +383,7 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-shopping-paint":{title:"水彩与画纸",content:"部分画材还在购物车。",archiveContent:"她对梦想的渴望，始终没有真正熄灭。",fields:["hobbiesFact"]},
  "archive-transfers-rent":{title:"房租",content:"六月房租。",fields:[]},
  "archive-transfers-tuition":{title:"暨广大学学费",content:"自己承担的学费。",fields:[]},
- "archive-transfers-huabei":{title:"花呗最低还款",content:"最低还款记录。",fields:[]},
+ "archive-transfers-huabei":{title:"花吧最低还款",content:"最低还款记录。",fields:[]},
  "archive-transfers-catVet":{title:"给猫看病200元",content:"宠物医院支出。",archiveContent:"她会为一只与自己无关的生命，承担起责任。",fields:["kindnessFact"]},
  "archive-transfers-groceries":{title:"替王奶奶买菜",content:"菜市场支出。",archiveContent:"她把邻里之间的关照，活成了日常的一部分。",fields:["kindnessFact"]}
 });
@@ -1079,28 +1079,35 @@ function bindEvidenceDrag(card){
  };
  const begin=event=>{
   if(dragging)return;
-  dragging=true;startRect=card.getBoundingClientRect();
-  visualScale=startRect.width/card.offsetWidth||1;
-  clone=card.cloneNode(true);
-  clone.removeAttribute("data-evidence");
-  clone.classList.add("evidence-drag-clone");
-  clone.classList.remove("selected","drag-source");
-  Object.assign(clone.style,{left:`${startRect.left}px`,top:`${startRect.top}px`,width:`${card.offsetWidth}px`,height:`${card.offsetHeight}px`,transformOrigin:"top left"});
-  document.body.appendChild(clone);
-  card.classList.add("drag-source");
-  requestAnimationFrame(()=>moveClone(lastX,lastY));
- };
+   dragging=true;startRect=card.getBoundingClientRect();
+   visualScale=startRect.width/card.offsetWidth||1;
+   clone=card.cloneNode(true);
+   clone.removeAttribute("data-evidence");
+   clone.setAttribute("aria-hidden","true");
+   clone.classList.add("evidence-drag-clone","resume-evidence-clone");
+   clone.classList.remove("selected","drag-source");
+   Object.assign(clone.style,{left:`${startRect.left}px`,top:`${startRect.top}px`,width:`${card.offsetWidth}px`,height:`${card.offsetHeight}px`,transformOrigin:"top left"});
+   document.body.appendChild(clone);
+   card.classList.add("drag-source");
+   document.documentElement.classList.add("resume-evidence-dragging");
+   try{card.setPointerCapture?.(pointerId)}catch{}
+   requestAnimationFrame(()=>moveClone(lastX,lastY));
+  };
  const removeGlobalListeners=()=>{
   window.removeEventListener("pointermove",onGlobalMove);
   window.removeEventListener("pointerup",onGlobalEnd);
   window.removeEventListener("pointercancel",onGlobalCancel);
  };
  const clean=()=>{
-  clearTimeout(timer);timer=null;clearTargets();card.classList.remove("drag-source");removeGlobalListeners();
- };
+   clearTimeout(timer);timer=null;clearTargets();card.classList.remove("drag-source");
+   document.documentElement.classList.remove("resume-evidence-dragging");
+   try{if(card.hasPointerCapture?.(pointerId))card.releasePointerCapture(pointerId)}catch{}
+   removeGlobalListeners();
+  };
  card.onpointerdown=event=>{
   if(event.button!==undefined&&event.button!==0)return;
-  pointerId=event.pointerId;
+  if(event.pointerType!=="touch")event.preventDefault();
+   pointerId=event.pointerId;
   startX=lastX=event.clientX;startY=lastY=event.clientY;
   window.addEventListener("pointermove",onGlobalMove,{passive:false});
   window.addEventListener("pointerup",onGlobalEnd);
