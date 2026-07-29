@@ -609,13 +609,12 @@ html,body,.stage{background:#000}
 
 /* persistent collected-information tray and one-tap heart collection */
 .global-evidence{
- position:absolute;z-index:150;left:10px;right:10px;bottom:18px;
- margin:0;max-height:142px;padding:12px 13px;
+ position:absolute;z-index:150;left:10px;right:10px;bottom:0;
+ margin:0;max-height:calc(142px + env(safe-area-inset-bottom));padding:12px 13px calc(12px + env(safe-area-inset-bottom));
  overflow:hidden;background:#fffffff2;
- border:1px solid #cbbfb1;border-radius:24px 22px 18px 20px;
+ border:1px solid #cbbfb1;border-bottom:0;border-radius:24px 22px 0 0;
  box-shadow:0 -4px 14px #6f59451a;
 }
-.home .global-evidence{bottom:128px}
 .global-evidence .archive-head{margin-bottom:7px}
 .global-evidence .archive-empty{padding:8px 4px;font-size:11px}
 .global-evidence .evidence-list{padding-bottom:2px}
@@ -1041,7 +1040,7 @@ function hasAppUpdate(appId){
  const keys=APP_DATA_KEYS[appId]||[];
  return keys.some(key=>(APP_DATA[key]||[]).some(item=>(item.unlockAt||0)>0&&(item.unlockAt||0)<=state.unlockStage&&(state.seenStages[appId]??0)<state.unlockStage));
 }
-function homeHTML(){return `<section class="screen home">${status(true)}<div class="apps">${APPS.map(a=>`<button class="app" data-app="${a[0]}"><span class="icon ${a[3]}">${a[2]}${a[4]?`<i class="app-badge">${a[4]}</i>`:hasAppUpdate(a[0])?`<i class="update-dot"></i>`:""}</span><span>${a[1]}</span></button>`).join("")}${INACTIVE_APPS.map(a=>`<button class="app inactive-app" data-app="${a[0]}"><span class="icon ${a[3]}">${a[2]}</span><span>${a[1]}</span></button>`).join("")}</div><button class="case-pill" data-case>档案 0079412</button><div class="dock">${APPS.slice(0,4).map(a=>`<button data-app="${a[0]}"><span class="icon ${a[3]}">${a[2]}${a[4]?`<i class="app-badge">${a[4]}</i>`:hasAppUpdate(a[0])?`<i class="update-dot"></i>`:""}</span></button>`).join("")}</div></section>`}
+function homeHTML(){return `<section class="screen home">${status(true)}<div class="apps">${APPS.map(a=>`<button class="app" data-app="${a[0]}"><span class="icon ${a[3]}">${a[2]}${a[4]?`<i class="app-badge">${a[4]}</i>`:hasAppUpdate(a[0])?`<i class="update-dot"></i>`:""}</span><span>${a[1]}</span></button>`).join("")}${INACTIVE_APPS.map(a=>`<button class="app inactive-app" data-app="${a[0]}"><span class="icon ${a[3]}">${a[2]}</span><span>${a[1]}</span></button>`).join("")}</div><button class="case-pill" data-case>档案 0079412</button></section>`}
 function openApp(appId){state.seenStages[appId]=state.unlockStage;state.app=appId;state.view=null;render()}
 function bindHome(){document.querySelectorAll("[data-app]").forEach(b=>b.onclick=()=>openApp(b.dataset.app));document.querySelectorAll("[data-case]").forEach(b=>b.onclick=()=>openApp("dossierApp"))}
 function shell(title,content,extra=""){return `<section class="screen slide-in ${extra}">${status()}<header class="nav">${state.view?`<button id="back">‹ 返回</button>`:`<span></span>`}<b>${esc(title)}</b><span></span></header><div class="content">${content}</div><button class="homebar" id="homebar" aria-label="向上滑动返回主屏幕"></button></section>`}
