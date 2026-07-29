@@ -638,6 +638,19 @@ html,body,.stage{background:#000}
  position:sticky;z-index:145;bottom:0;
 }
 .homebar{z-index:180}
+
+/* Full-screen on portrait phones; preserve a fitted portrait canvas everywhere else. */
+html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
+.phone{transform-origin:center center}
+@media (min-width:761px), (hover:hover), (orientation:landscape){
+ .stage{display:block;position:relative}
+ .phone{
+  width:375px;height:812px;max-height:none;
+  position:absolute;flex:none;border-radius:48px;
+  transform-origin:top left;
+ }
+ .screen{border-radius:inherit}
+}
 </style>
 </head>
 <body>
@@ -1335,7 +1348,30 @@ document.addEventListener("keydown",e=>{
  state.pendingArchive=null;
  render();
 },{capture:true});
+function fitPortraitViewport(){
+ const phone=$("#phone");
+ const touchPortrait=matchMedia("(max-width:760px) and (hover:none) and (pointer:coarse) and (orientation:portrait)").matches;
+ if(touchPortrait){
+  phone.style.transform="";
+  phone.style.left="";
+  phone.style.top="";
+  phone.style.position="";
+  return;
+ }
+ const bounds=$(".stage").getBoundingClientRect();
+ const width=bounds.width;
+ const height=bounds.height;
+ const scale=Math.min(1,(width-24)/375,(height-24)/812);
+ const fittedScale=Math.max(.2,scale);
+ phone.style.position="absolute";
+ phone.style.left=`${Math.max(12,(width-375*fittedScale)/2)}px`;
+ phone.style.top=`${Math.max(12,(height-812*fittedScale)/2)}px`;
+ phone.style.transform=`scale(${fittedScale})`;
+}
+window.addEventListener("resize",fitPortraitViewport);
+window.visualViewport?.addEventListener("resize",fitPortraitViewport);
 render();
+fitPortraitViewport();
 </script>
 </body>
 </html>
