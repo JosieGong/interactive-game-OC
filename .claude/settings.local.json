@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=8000 --dump-dom file:///Users/Josie/Desktop/interactive-game-OC/_t.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=12000 --dump-dom file:///Users/Josie/Desktop/interactive-game-OC/_t.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --window-size=1280,900 --virtual-time-budget=4000 --dump-dom file:///Users/Josie/Desktop/interactive-game-OC/_t2.html)"
+    ]
+  }
+}
