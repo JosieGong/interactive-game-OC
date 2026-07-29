@@ -256,7 +256,7 @@ Object.assign(APP_DATA,{
  transfers:[
   {id:"rent",title:"房租",subtitle:"支出",timestamp:"6月1日",price:"-¥1,800.00",content:"六月房租",status:"out",unlockAt:0},
   {id:"tuition",title:"学费",subtitle:"支出",timestamp:"3月2日",price:"-¥8,000.00",content:"暨广大学学费",status:"out",unlockAt:0},
-  {id:"huabei",title:"花呗最低还款",subtitle:"支出",timestamp:"5月10日",price:"-¥326.00",content:"最低还款",status:"out",unlockAt:0},
+  {id:"huabei",title:"花吧最低还款",subtitle:"支出",timestamp:"5月10日",price:"-¥326.00",content:"最低还款",status:"out",unlockAt:0},
   {id:"catVet",title:"宠物医院",subtitle:"支出",timestamp:"5月16日",price:"-¥200.00",content:"给楼下的猫看病",status:"out",unlockAt:1},
   {id:"groceries",title:"菜市场",subtitle:"支出",timestamp:"5月08日",price:"-¥86.40",content:"替王奶奶买菜",status:"out",unlockAt:1}
  ]
@@ -383,7 +383,7 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-shopping-paint":{title:"水彩与画纸",content:"部分画材还在购物车。",archiveContent:"她对梦想的渴望，始终没有真正熄灭。",fields:["hobbiesFact"]},
  "archive-transfers-rent":{title:"房租",content:"六月房租。",fields:[]},
  "archive-transfers-tuition":{title:"暨广大学学费",content:"自己承担的学费。",fields:[]},
- "archive-transfers-huabei":{title:"花呗最低还款",content:"最低还款记录。",fields:[]},
+ "archive-transfers-huabei":{title:"花吧最低还款",content:"最低还款记录。",fields:[]},
  "archive-transfers-catVet":{title:"给猫看病200元",content:"宠物医院支出。",archiveContent:"她会为一只与自己无关的生命，承担起责任。",fields:["kindnessFact"]},
  "archive-transfers-groceries":{title:"替王奶奶买菜",content:"菜市场支出。",archiveContent:"她把邻里之间的关照，活成了日常的一部分。",fields:["kindnessFact"]}
 });
@@ -929,8 +929,9 @@ function showArchivePrompt(){
  $("#cancelArchive").onclick=()=>{state.pendingArchive=null;$("#archivePrompt")?.remove()};
 }
 function globalArchiveHTML(){
- const evidence=collectedEvidence();
- return `<section class="global-evidence evidence-archive ${state.archiveOpen?"open":""}"><div class="archive-head"><h3>已收藏线索</h3><small>${evidence.length} 条 · 向左滑动浏览</small></div>${evidence.length?`<div class="evidence-list">${evidence.map(item=>`<div class="evidence-card"><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></div>`).join("")}</div>`:`<div class="archive-empty">暂无收藏。<br>长按线索并拖到这里。</div>`}</section>`;
+  const evidence=collectedEvidence();
+  const usedIds=Object.values(state.evidenceAssignments).flat();
+  return `<section class="global-evidence evidence-archive ${state.archiveOpen?"open":""}"><div class="archive-head"><h3>已收藏线索</h3><small>${evidence.length} 条 · 向左滑动浏览</small></div>${evidence.length?`<div class="evidence-list">${evidence.map(item=>`<div class="evidence-card ${usedIds.includes(item.id)?"used":""}"><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></div>`).join("")}</div>`:`<div class="archive-empty">暂无收藏。<br>长按线索并拖到这里。</div>`}</section>`;
 }
 function mountGlobalArchive(){
  const screen=$("#phone .screen");if(!screen)return;
@@ -1165,7 +1166,7 @@ function bindApp(){
   render();
  };
  if($("#back"))$("#back").onclick=goBack;
- const goHome=()=>{if(tutorialLocked())return;state.app=null;state.view=null;render()};
+  const goHome=()=>{if(tutorialLocked())return;state.app=null;state.view=null;state.archiveOpen=false;render()};
  $("#homebar").onclick=goHome;
  let touchX=0,touchY=0,homeGesture=false;
  $("#phone").ontouchstart=e=>{const touch=e.touches[0],rect=$("#phone").getBoundingClientRect();touchX=touch.clientX;touchY=touch.clientY;homeGesture=touchY>rect.bottom-82};
