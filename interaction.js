@@ -230,7 +230,7 @@ Object.assign(APP_DATA,{
  ],
  notes:[
   {id:"interview",title:"职位面试准备",subtitle:"待办清单",timestamp:"6月16日",content:"整理常见外贸面试问题及回答思路；准备1分钟自我介绍；复习实习案例；查看公司的主营业务和产品线。",unlockAt:0},
-  {id:"research",title:"课题本周 Todo",subtitle:"数字金融与居民消费",timestamp:"6月15日",content:"补充相关文献5—8篇；整理研究变量、数据来源和主要结论；下载指数和居民消费数据；录入Excel并标记缺失值。",unlockAt:0},
+  {id:"research",title:"课题本周 Todo",subtitle:"数字金融与居民消费",timestamp:"6月15日",content:"补充相关文献5—8篇；整理研究变量、数据来源和主要结论；下载指数和居民消费数据；录入Excel并标记缺失值。","checks":[0,1],unlockAt:0},
   {id:"exam",title:"考研二战倒计时",subtitle:"已结束两年",timestamp:"两年前",content:"第二次考研，第214天。今天不要想结果，只把这一页做完。",unlockAt:0},
   {id:"cloud",title:"傍晚六点十二分",subtitle:"日记",timestamp:"2022年5月18日",content:"云从宿舍楼后面慢慢翻过去，最下面是粉的，上面还是很亮。风把树叶吹得一阵深一阵浅，猫在车底只露出一截尾巴。",unlockAt:1},
   {id:"oc",title:"明天会有 OC 吗",subtitle:"未分类",timestamp:"昨晚23:41",content:"明天会有 OC 吗。",unlockAt:1},
@@ -244,8 +244,8 @@ Object.assign(APP_DATA,{
   {id:"curious",title:"花、云和颜色",time:"5月18日",preview:"这种花叫什么",unlockAt:1,user:"这种花叫什么？傍晚的云有学名吗？这里该用什么颜色？",answer:"可以分别记录花的叶形、云层高度与光线方向；颜色先从你实际看到的明暗关系开始。"}
  ],
  shopping:[
-  {id:"suit",title:"面试西装",subtitle:"已退货",price:"-¥299.00",timestamp:"6月12日",address:"宿舍",content:"试穿后申请退货。",unlockAt:0},
-  {id:"examBooks",title:"考研资料",subtitle:"已签收",price:"¥186.40",timestamp:"两年前",address:"家",content:"应用经济学考研真题和笔记。",unlockAt:0},
+  {id:"suit",title:"商务西装套装",spec:"尺码：M｜颜色：黑色",price:"-¥299.00",timestamp:"6月12日",statusLabel:"退货",statusType:"refund",bottomText:"退款成功",unlockAt:0},
+  {id:"examBooks",title:"考研资料",spec:"应用经济学考研真题和笔记",price:"¥186.40",timestamp:"两年前",statusLabel:"已签收",statusType:"done",unlockAt:0},
   {id:"catFood",title:"猫粮与肉罐头",subtitle:"定期购买",price:"¥128.00",timestamp:"每月",address:"梧桐苑",content:"购物车里还有一箱未付款。",unlockAt:1},
   {id:"monitor",title:"大字体血压计",subtitle:"已签收",price:"¥169.00",timestamp:"5月08日",address:"王奶奶",content:"大字体、大音量款。",unlockAt:1},
   {id:"paint",title:"水彩与画纸",subtitle:"部分仍在购物车",price:"¥236.00",timestamp:"4月12日",address:"宿舍",content:"买了一部分，还有几盒彩色颜料没舍得付款。",unlockAt:1}
@@ -543,7 +543,7 @@ function appHTML(){
  if(state.app==="wechat")return wechatHTML();
  if(state.app==="photos")return photosHTML();
  if(state.app==="doubao")return aiHTML();
- if(state.app==="shopping")return recordsHTML("网购","shopping","▣");
+ if(state.app==="shopping")return shoppingHTML();
  if(state.app==="calls")return recordsHTML("电话","calls","☎");
  if(state.app==="delivery")return recordsHTML("饱了么","delivery","餐");
  if(state.app==="transfers")return recordsHTML("钱包","transfers","¥");
@@ -644,12 +644,47 @@ function notesHTML(){
   return shell(item.title,`<div class="note-detail"><h1>${esc(item.title)}</h1><div class="note-date">${esc(item.timestamp)}</div>${body}</div>`);
  }
  const preview=(text,n=35)=>text.length>n?text.slice(0,n)+"…":text;
- return shell("随记",`<div class="notes-list"><div class="notes-count">${visible.length} 个备忘录</div>${visible.map(item=>`<button class="notes-card" data-record="${item.id}"><h3>${esc(item.title)}</h3><div class="notes-date">${esc(item.timestamp)}</div><div class="notes-preview">${esc(preview(item.content))}</div></button>`).join("")}</div>`);
+ return shell("随记",`<div class="notes-list"><div class="notes-count">${visible.length} 个备忘录</div>${visible.map(item=>`<button class="notes-card archive-heart-host" data-record="${item.id}" ${archiveAttrs("notes",item.id,"card",item.title,item.content)}><h3>${esc(item.title)}</h3><div class="notes-date">${esc(item.timestamp)}</div><div class="notes-preview">${esc(preview(item.content))}</div></button>`).join("")}</div>`);
 }
 function recordDetailHTML(title,key,symbol){
  const item=APP_DATA[key].find(x=>x.id===state.view);
  const appId=state.app;
  return shell(title,`<article class="detail-card"><div class="detail-symbol">${symbol}</div><h1>${esc(item.title)}</h1><p>${esc(item.subtitle||"记录详情")}</p><button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"time",item.title+" · 时间",item.timestamp)}><small>时间</small><b>${esc(item.timestamp)}</b></button>${item.price?`<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"price",item.title+" · "+(key==="transfers"?"金额":"价格"),item.price)}><small>${key==="transfers"?"金额":"价格"}</small><b>${esc(item.price)}</b></button>`:""}${item.duration?`<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"duration",item.title+" · 通话时长",item.duration)}><small>通话时长</small><b>${esc(item.duration)}</b></button>`:""}${item.address?`<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"address",item.title+" · 地址",item.address)}><small>${key==="delivery"?"送达地址":"收货地址"}</small><b>${esc(item.address)}</b></button>`:""}<button class="detail-line archive-line" ${archiveAttrs(appId,item.id,"content",item.title,item.content)}><small>${key==="transfers"?"转账备注":key==="delivery"?"餐品明细":key==="shopping"?"商品信息":"记录信息"}</small><b>${esc(item.content)}</b></button></article>`);
+}
+function shoppingHTML(){
+ const orders=visibleData("shopping");
+ if(state.view){
+  const item=APP_DATA.shopping.find(x=>x.id===state.view);
+  if(item.id==="suit"){
+   const lines=[
+    {label:"退回银行卡",value:"¥299",bold:false},
+    {label:"返还优惠",value:"¥0.96",bold:false},
+    {label:"运费保障",value:"",bold:false}
+   ];
+   const rows=lines.map(l=>`<div class="order-detail-row"><span>${esc(l.label)}</span><span class="${l.bold?"order-detail-bold":""}">${esc(l.value)}</span></div>`).join("");
+   return shell("订单详情",`<div class="order-detail-page"><div class="order-detail-status refund">退款成功</div>${rows}</div>`);
+  }
+  if(item.id==="examBooks"){
+   const lines=[
+    {label:"商品总价",value:"¥186.4",bold:false},
+    {label:"店铺优惠",value:"-¥7.9",bold:false},
+    {label:"平台优惠",value:"-¥10",bold:false},
+    {label:"实际付款",value:"¥168.5",bold:true}
+   ];
+   const rows=lines.map(l=>`<div class="order-detail-row"><span>${esc(l.label)}</span><span class="${l.bold?"order-detail-bold":""}">${esc(l.value)}</span></div>`).join("");
+   return shell("订单详情",`<div class="order-detail-page"><div class="order-detail-status done">已签收</div>${rows}</div>`);
+  }
+  return recordDetailHTML("网购","shopping","▣");
+ }
+ const cards=orders.map(item=>{
+  const tag=item.statusLabel?`<span class="order-status-tag ${item.statusType||""}">${esc(item.statusLabel)}</span>`:"";
+  const bottom=item.bottomText?`<div class="order-bottom">${esc(item.bottomText)}</div>`:"";
+  const spec=item.spec?`<div class="order-spec">${esc(item.spec)}</div>`:"";
+  const imgIcon=item.id==="suit"?"👔":item.id==="examBooks"?"📚":"📦";
+  const archiveAttr=archiveAttrs("shopping",item.id,"order",item.title,item.price);
+  return `<button class="order-card archive-heart-host" data-record="${item.id}" ${archiveAttr}><div class="order-img">${imgIcon}</div><div class="order-info"><div class="order-name">${esc(item.title)}</div>${spec}<div class="order-price">${esc(item.price)}</div>${bottom}</div>${tag}</button>`;
+ }).join("");
+ return shell("网购",`<div class="order-list"><div class="order-section-title">我的订单</div>${cards}</div>`);
 }
 function recordsHTML(title,key,symbol){
  if(state.view)return recordDetailHTML(title,key,symbol);
@@ -936,7 +971,11 @@ function bindArchiveHearts(){
   const onEnd=event=>{
    if(event.pointerId!==pointerId)return;
    clearTimeout(timer);
-   if(!active){clearState();return}
+   if(!active){
+    const dist=Math.hypot(event.clientX-startX,event.clientY-startY);
+    if(dist<10&&el.dataset.record){openInformation(state.app,el.dataset.record)}
+    clearState();return;
+   }
    finish(event.clientX,event.clientY);
   };
   const onCancel=event=>{
