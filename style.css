@@ -1040,3 +1040,26 @@ html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
 .check-dot{width:20px;height:20px;border:1.5px solid #ccc;border-radius:50%;flex-shrink:0;margin-top:2px;display:grid;place-items:center;font-size:10px;color:transparent}
 .check-dot.checked{border-color:#4a90d9;background:#4a90d9;color:#fff}
 .note-plain{font-size:15px;line-height:1.8;color:#333;white-space:pre-wrap}
+/* E-commerce order cards */
+.order-list{padding:8px 14px 28px}
+.order-section-title{padding:6px 4px 10px;color:#888;font-size:12px}
+.order-card{width:100%;background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;text-align:left;display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;position:relative}
+.order-card:active{background:#f9f9f9}
+.order-img{width:90px;height:110px;border-radius:8px;background:#f0ede7;display:grid;place-items:center;font-size:36px;color:#c5b89e;overflow:hidden;flex-shrink:0}
+.order-img img{width:100%;height:100%;object-fit:cover}
+.order-info{min-width:0;display:flex;flex-direction:column;gap:6px}
+.order-name{font-size:15px;font-weight:650;color:#222;line-height:1.3}
+.order-spec{font-size:12px;color:#999;line-height:1.4}
+.order-status-tag{position:absolute;right:14px;top:14px;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600}
+.order-status-tag.refund{background:#fff3cd;color:#b8860b;border:1px solid #f0d57c}
+.order-status-tag.done{background:#e8f5e9;color:#388e3c;border:1px solid #a5d6a7}
+.order-bottom{font-size:12px;color:#aaa;margin-top:2px}
+.order-price{font-size:15px;font-weight:650;color:#222}
+/* Order detail page */
+.order-detail-page{background:#fff;min-height:100%;padding:24px 20px 40px}
+.order-detail-status{text-align:center;font-size:18px;font-weight:700;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid #eee}
+.order-detail-status.refund{color:#e8a317}
+.order-detail-status.done{color:#388e3c}
+.order-detail-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #f5f5f5;font-size:15px;color:#333}
+.order-detail-row:last-child{border-bottom:0}
+.order-detail-bold{font-weight:700;font-size:16px;color:#111}
