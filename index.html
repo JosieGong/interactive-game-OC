@@ -189,6 +189,8 @@ button{font-weight:550}
 }
 .dead-input{background:#fbf5ea;color:#9c8a7b;border:1.5px solid #c7b49e}
 .mom-banner{background:#fff6e7ed;color:var(--ink);border:1.5px solid #bca285;box-shadow:3px 5px 0 #8c704239}
+.mom-banner.leaving{animation:bannerUp .32s ease forwards}
+@keyframes bannerUp{to{opacity:0;transform:translateY(-90px)}}
 .mom-banner b{background:var(--pink);color:#765653;border:1px solid #a9827d;border-radius:12px}
 .ai-logo,.history button>span{background:#c8c4dc;color:#665e80;border:1.5px solid #938aa5}
 .ai-answer{background:#fff9ed;border:1.4px solid #c7b49e;border-radius:9px 18px 18px}
@@ -316,11 +318,35 @@ button{font-weight:550}
 .form-section,.detail-card,.evidence-card,.filed-evidence,.intro-list{
  box-shadow:2px 3px 6px #9476521c,-1px -1px 3px #fff8;
 }
+.evidence-drag-clone{
+ position:fixed!important;z-index:10000!important;margin:0!important;
+ pointer-events:none!important;box-sizing:border-box;
+ opacity:.9;transform-origin:center;
+ box-shadow:0 16px 34px #4d392f52,0 5px 12px #76583d35!important;
+ will-change:transform;
+}
+.evidence-drag-clone.archive-heart-host{position:fixed!important}
+.archive-collect-clone{overflow:hidden!important}
+.global-evidence.collect-drop-active{
+ outline:3px solid #d6aa4f;box-shadow:0 -8px 26px #765d3d38;
+}
+.evidence-card[data-evidence]{touch-action:pan-x}
 .form-section{border-radius:23px 18px 25px 20px}
 .form-section:nth-of-type(3n+1){transform:rotate(-.12deg)}
 .form-section:nth-of-type(3n+2){transform:rotate(.1deg)}
 .bubble{border-radius:20px 17px 22px 9px}
 .bubble.me{border-radius:17px 21px 8px 22px}
+.message-line{
+ width:100%;display:flex;align-items:flex-start;gap:8px;margin:5px 0;
+}
+.message-line.me{flex-direction:row-reverse}
+.message-line .bubble,.message-line .file-bubble{margin:0;align-self:auto}
+.message-line .bubble{max-width:calc(79% - 40px)}
+.message-avatar{
+ flex:0 0 32px;width:32px;height:32px;border-radius:50%;
+ background:var(--contact-avatar,#aa9a8c);box-shadow:1px 2px 4px #725c4930;
+}
+.message-line.me .message-avatar{background:#829aa5}
 .chat-row:nth-child(odd),.record-row:nth-child(odd){background:#faf3e5}
 .chat-row:nth-child(even),.record-row:nth-child(even){background:#f5ecdd}
 .avatar:nth-child(3n+1),.record-icon:nth-child(3n+1){background:#b1b99e}
@@ -601,6 +627,24 @@ html,body,.stage{background:#000}
 .icon.calendar-icon{background-image:url("日历.png")}
 .icon.doubao{background-image:url("ai助手.png")}
 .icon.browser-icon{background-image:url("浏览器.png");background-size:cover}
+.icon.shopping{
+ color:transparent;font-size:0;text-shadow:none;
+ background:transparent url("网购.png") center/contain no-repeat;
+ border:0;box-shadow:none;
+}
+.icon.shopping:before,.icon.shopping:after{display:none}
+.icon.transfers{
+ color:transparent;font-size:0;text-shadow:none;
+ background:transparent url("钱包.png") center/contain no-repeat;
+ border:0;box-shadow:none;
+}
+.icon.transfers:before,.icon.transfers:after{display:none}
+.apps .core-app .icon.dossier-app-icon{
+ color:transparent;font-size:0;text-shadow:none;
+ background:transparent url("简历.png") center/contain no-repeat;
+ border:0;box-shadow:none;
+}
+.icon.dossier-app-icon:before,.icon.dossier-app-icon:after{display:none}
 .icon.notes:before,.icon.notes:after,
 .icon.calendar-icon:before,.icon.calendar-icon:after,
 .icon.doubao:before,.icon.doubao:after,
@@ -655,6 +699,12 @@ html,body,.stage{background:#000}
  width:54px;height:54px;border-radius:50%;background:#f3cf69;color:#76532f;
  border:2px solid #fff4d1;box-shadow:0 5px 18px #6f594548;font-size:25px;
 }
+.persistent-archive-toggle{
+ position:absolute!important;z-index:215!important;
+ right:16px!important;bottom:calc(16px + env(safe-area-inset-bottom))!important;
+ left:auto!important;top:auto!important;margin:0!important;
+}
+.persistent-archive-toggle.tutorial-target{position:absolute!important;z-index:232!important}
 .global-evidence{display:none}
 .global-evidence.open{display:block}
 .content>.evidence-archive{display:none}
@@ -674,6 +724,43 @@ html,body,.stage{background:#000}
 .tutorial-tip{width:100%;padding:18px;border:1.5px solid #bca78f;border-radius:22px;background:#fffaf0;box-shadow:3px 5px 0 #8f73542b}
 .tutorial-tip small{color:#9a7a5f}.tutorial-tip h2{margin:7px 0;font-size:19px}.tutorial-tip p{margin:0 0 14px;color:#776b61;font-size:13px;line-height:1.65}
 .tutorial-tip button{width:100%;height:44px;border-radius:14px;background:#e9cf98;color:#674f3e}
+.tutorial-dim:before{
+ content:"";position:absolute;inset:0;z-index:225;background:#ffffff2e;pointer-events:none;
+}
+.tutorial-target{
+ position:relative!important;z-index:232!important;opacity:1!important;pointer-events:auto!important;
+}
+.tutorial-wiggle{animation:tutorialWiggle .72s ease-in-out infinite}
+@keyframes tutorialWiggle{
+ 0%,100%{transform:scale(1.12) rotate(0)}
+ 20%{transform:scale(1.12) rotate(-3deg)}
+ 40%{transform:scale(1.12) rotate(3deg)}
+ 60%{transform:scale(1.12) rotate(-2deg)}
+ 80%{transform:scale(1.12) rotate(2deg)}
+}
+.tutorial-modal-layer{position:absolute;inset:0;z-index:245;display:grid;place-items:center;padding:22px;background:#ffffff2e}
+.tutorial-modal{
+ width:100%;padding:22px 18px;border:1.5px solid #bca78f;border-radius:24px;
+ background:#fffaf0;color:#59483c;box-shadow:4px 7px 24px #6e57333d;text-align:center;
+}
+.tutorial-modal h2{margin:0 0 11px;font-size:20px}.tutorial-modal p{margin:0 0 18px;color:#776b61;font-size:14px;line-height:1.7}
+.tutorial-modal button,.tutorial-final button{width:100%;height:44px;border-radius:14px;background:#e9cf98;color:#674f3e}
+.tutorial-inline{
+ position:absolute;z-index:238;left:18px;right:18px;bottom:175px;padding:11px 14px 11px 40px;
+ border:1.5px solid #bca78f;border-radius:16px;background:#fffaf0;color:#6d5949;font-size:12px;line-height:1.5;
+ box-shadow:3px 4px 0 #8f73542b;pointer-events:none;
+}
+.tutorial-inline:before{content:"➜";position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#c29243;font-size:20px}
+.tutorial-line-target{position:relative!important;z-index:232!important;transform:scale(1.035);outline:3px solid #d6aa4f;box-shadow:0 8px 24px #765d3d35}
+.tutorial-dim .global-evidence.open{z-index:233}
+.tutorial-final{
+ position:sticky;z-index:238;top:0;margin:0 12px 12px;padding:14px;border:1.5px solid #bca78f;
+ border-radius:0 0 17px 17px;background:#fff7e7;color:#685646;font-size:12px;line-height:1.55;
+ box-shadow:0 4px 12px #6e57331f;
+}
+.tutorial-final button{margin-top:10px}
+.tutorial-resume-arrow{bottom:84px;text-align:right;padding:11px 48px 11px 14px}
+.tutorial-resume-arrow:before{content:"➜";left:auto;right:16px;transform:translateY(-50%) rotate(35deg)}
 .resume-tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 16px}
 .resume-tabs button{padding:10px;border-radius:13px;background:#e8dfd3;color:#796958}
 .resume-tabs button.active{background:#d8b77f;color:#fff}
@@ -683,6 +770,58 @@ html,body,.stage{background:#000}
 .apps .core-app{grid-column:span 2;grid-row:span 2;justify-content:center}
 .apps .core-app .icon{width:124px;height:124px;border-radius:30px;font-size:42px}
 .apps .core-app>span:last-child{font-size:13px}
+
+/* iOS-inspired Photos layout */
+.photos-screen .content{background:#f2f2f7;color:#111}
+.ios-photos-home{min-height:100%;padding-bottom:92px;background:#fff}
+.ios-photos-heading{padding:18px 16px 10px}
+.ios-photos-heading h1{margin:0;font-size:31px;line-height:1.1;letter-spacing:-.02em}
+.ios-photos-heading small{display:block;margin-top:5px;color:#8e8e93;font-size:12px}
+.photos-segment{
+ display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:4px 16px 14px;padding:3px;
+ border-radius:10px;background:#e9e9ec;
+}
+.photos-segment button{height:31px;border-radius:8px;background:transparent;color:#555;font-size:13px}
+.photos-segment button.active{background:#fff;color:#111;box-shadow:0 1px 4px #0002}
+.ios-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;padding:0 2px}
+.ios-photo-thumb{
+ position:relative;display:block;width:100%;aspect-ratio:1;overflow:hidden;padding:0;
+ background:#e8e8eb;color:#777;
+}
+.ios-photo-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.ios-photo-placeholder{width:100%;height:100%;display:grid;place-items:center;background:#e5e2de;font-size:11px}
+.ios-photo-empty{padding:86px 28px;text-align:center;color:#8e8e93}
+.ios-photo-empty b{display:block;margin-bottom:7px;color:#333;font-size:17px}
+.album-options{margin-top:30px;padding:0 16px}
+.album-options h2{margin:0 0 7px;font-size:20px}
+.album-row{
+ width:100%;min-height:54px;display:flex;align-items:center;justify-content:space-between;
+ padding:0 2px;border-top:1px solid #dedee2;background:#fff;color:#111;text-align:left;
+}
+.album-row span{color:#ff3b30}.album-row small{color:#8e8e93}.album-row:disabled{opacity:.45}
+.photo-detail-screen,.photo-detail-screen .content,.photo-detail-screen .nav{background:#050505;color:#fff}
+.photo-detail-screen .nav{border-bottom-color:#242424}
+.photo-detail-screen .nav button{color:#fff}
+.photo-detail-screen .homebar{background:#fff}
+.ios-photo-detail{position:relative;min-height:100%;display:flex;flex-direction:column;background:#050505}
+.photo-detail-stage{
+ min-height:520px;flex:1;display:grid;place-items:center;padding:18px 0 8px;background:#050505;
+}
+.photo-detail-image{display:grid;place-items:center;width:100%;max-height:570px;padding:0;background:#050505}
+.photo-detail-image.archive-heart-host{padding:0!important}
+.photo-detail-image img{display:block;max-width:100%;max-height:570px;width:100%;height:auto;object-fit:contain}
+.photo-detail-caption{padding:12px 18px 84px;background:#0b0b0c;color:#fff}
+.photo-detail-caption b{display:block;font-size:16px}.photo-detail-caption small{display:block;margin-top:5px;color:#aaa;font-size:11px}
+.photo-detail-caption p{margin:9px 0 0;color:#d1d1d6;font-size:12px;line-height:1.55}
+.photo-detail-controls{
+ position:absolute;z-index:12;left:50%;bottom:20px;transform:translateX(-50%);
+ display:flex;justify-content:center;gap:54px;
+}
+.photo-detail-controls button,.photo-detail-more{
+ width:38px;height:38px;border-radius:50%;background:#2c2c2ecc;color:#fff;font-size:19px;
+}
+.photo-detail-controls button:disabled{opacity:.25}
+.photo-detail-more{position:absolute;z-index:12;right:12px;top:10px}
 
 /* Full-screen on portrait phones; preserve a fitted portrait canvas everywhere else. */
 html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
@@ -913,15 +1052,21 @@ Object.assign(APP_DATA,{
  chats:[
   {id:"advisor",name:"导师",avatar:"导",time:"02:03",preview:"好的老师。",unlockAt:0,messages:[{from:"them",content:"明天去学院帮我拿一下快递。",timestamp:"01:47"},{from:"me",content:"好的老师。",timestamp:"02:03"}]},
   {id:"class",name:"暨广大学应用经济1班",avatar:"班",time:"昨天",preview:"论文查重通知已发群文件",unlockAt:0,messages:[{from:"them",content:"暨广大学应用经济学专业本周考试安排已上传。",timestamp:"周一 10:20"},{from:"them",content:"论文查重通知已发群文件，请大家确认。",timestamp:"昨天 16:08"}]},
-  {id:"mom",name:"妈",avatar:"妈",time:"昨天",preview:"怎么一天没回消息啊",unlockAt:0,messages:[{from:"them",content:"养生文章：年轻人也要按时吃饭。",timestamp:"昨天 08:12"},{from:"them",content:"吃饭了吗？",timestamp:"昨天 19:26"},{from:"them",content:"不要熬夜了。",timestamp:"昨天 23:15"}]},
+  {id:"mom",name:"妈",avatar:"妈",time:"昨天",preview:"怎么一天没回消息啊",unlockAt:0,messages:[{from:"them",content:"养生文章：年轻人也要按时吃饭。",timestamp:"昨天 08:12"},{from:"them",content:"吃饭了吗？",timestamp:"昨天 19:26"},{from:"them",content:"不要熬夜了。",timestamp:"昨天 23:15"}],stageMessages:[{unlockAt:1,from:"them",content:"今天降温了",timestamp:"刚刚"},{unlockAt:1,from:"them",content:"出门记得带件外套",timestamp:"刚刚"},{unlockAt:1,from:"them",content:"怎么一天没回消息啊",timestamp:"刚刚"}]},
   {id:"community",name:"梧桐苑小区群",avatar:"区",time:"周一",preview:"小张，我私发你登记表",unlockAt:1,messages:[{from:"me",content:"请问这次社区体检具体是哪天呀，需要提前预约吗？替3栋王奶奶问一下。",timestamp:"5月12日 09:20"},{from:"me",content:"附近有可以上门给老人剪头发的吗？王奶奶腿脚不方便。",timestamp:"4月08日 11:13"},{from:"them",content:"小张，我私发你登记表。",timestamp:"4月08日 11:20"}]},
   {id:"friends",name:"我们仨",avatar:"仨",time:"昨天",preview:"到了到了",unlockAt:1,messages:[{from:"them",content:"今天吃什么。",timestamp:"周一 18:02"},{from:"me",content:"二食堂那碗面，今天辣油放得刚好。",timestamp:"周一 18:05"},{from:"them",content:"你又写饭评。",timestamp:"周一 18:06"},{from:"me",content:"不记就白吃了。",timestamp:"周一 18:07"},{from:"them",content:"到了吗。",timestamp:"昨天 23:18"},{from:"me",content:"到了到了。",timestamp:"昨天 23:19"}]},
   {id:"draft",name:"阿圆",avatar:"圆",time:"草稿",preview:"47秒语音 · 未发送",unlockAt:1,messages:[{from:"me",content:"▶ 47″　未发送",timestamp:"草稿"},{from:"me",content:"你撤回了一条消息",timestamp:"系统提示"}]}
  ],
  photos:[
-  {id:"intern",cls:"school",date:"2025年9月",place:"收藏",title:"实习证明",desc:"外贸业务实习生｜某粤广消费品贸易公司（2025.06–2025.09）",unlockAt:0},
-  {id:"award",cls:"door",date:"2023年5月",place:"收藏",title:"学院优秀奖奖状",desc:"大学生国货消费意愿调研｜学院市场调研案例比赛优秀奖",unlockAt:0},
-  {id:"life",cls:"river",date:"2019年9月—至今",place:"收藏",title:"云、花、猫和每顿饭",desc:"收藏一千多张云、花、猫和每顿饭，没有一张自拍。",unlockAt:1}
+  {id:"intern",src:"assets/photos/实习证明.png",album:"favorites",date:"2025年9月",place:"收藏",title:"实习证明",desc:"外贸业务实习生｜某粤广消费品贸易公司（2025.06–2025.09）",unlockAt:0},
+  {id:"award",src:"assets/photos/奖状.png",album:"favorites",date:"2023年5月",place:"收藏",title:"学院优秀奖奖状",desc:"大学生国货消费意愿调研｜学院市场调研案例比赛优秀奖",unlockAt:0},
+  {id:"life",src:"assets/photos/乌云.png",album:"library",date:"2021年7月18日",place:"宿舍窗边",title:"雨前的云",desc:"她的相册里存着很多云、花、猫和每顿饭，没有一张自拍。",unlockAt:1},
+  {id:"sunny",src:"assets/photos/晴天.png",album:"library",date:"2022年4月09日",place:"教学楼下",title:"晴天",desc:"她会停下来记录普通日子里很亮的天空。",unlockAt:1},
+  {id:"sunset",src:"assets/photos/晚霞.png",album:"library",date:"2022年5月18日",place:"宿舍楼外",title:"傍晚六点十二分",desc:"云的最下面是粉色的，上面仍然很亮。",unlockAt:1},
+  {id:"wildflower",src:"assets/photos/野花.png",album:"library",date:"2021年3月27日",place:"去食堂的路上",title:"路边的野花",desc:"一小丛没有名字的花，她拍了三张。",unlockAt:1},
+  {id:"kitten",src:"assets/photos/小猫.png",album:"library",date:"2023年6月02日",place:"梧桐苑楼下",title:"楼下那只猫",desc:"同一只猫、同一个傍晚时段，在相册里出现了四年。",unlockAt:1},
+  {id:"mealbox",src:"assets/photos/盒饭.png",album:"library",date:"2024年11月14日",place:"实验室",title:"今天的盒饭",desc:"她为吃过的每一顿饭拍照，也认真写下评价。",unlockAt:1},
+  {id:"noodles",src:"assets/photos/面.png",album:"library",date:"2025年3月08日",place:"二食堂",title:"食堂的一碗面",desc:"备注写着：辣油刚好，面有一点软。",unlockAt:1}
  ],
  recentlyDeleted:[
   {id:"drawings",cls:"factory",date:"剩余6天",place:"最近删除",title:"最近删除的画",desc:"楼下那只猫、王奶奶的背影、食堂的一碗面。还有6天永久删除。",unlockAt:1}
@@ -1053,6 +1198,12 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-photos-intern":{title:"实习证明",content:"外贸业务实习生｜某粤广消费品贸易公司（2025.06–2025.09）",fields:["internshipFact"]},
  "archive-photos-award":{title:"学院优秀奖奖状",content:"大学生国货消费意愿调研｜学院市场调研案例比赛优秀奖",fields:["projectFact"]},
  "archive-photos-life":{title:"一千多张收藏照片",content:"云、花、猫、每顿饭，没有自拍。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
+ "archive-photos-sunny":{title:"晴天",content:"她拍下教学楼外很亮的天空。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
+ "archive-photos-sunset":{title:"傍晚六点十二分",content:"她留下了那天傍晚粉色的云。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
+ "archive-photos-wildflower":{title:"路边的野花",content:"去食堂的路上，她为一小丛野花拍了三张照片。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
+ "archive-photos-kitten":{title:"楼下那只猫",content:"同一只猫在她的相册里出现了四年。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
+ "archive-photos-mealbox":{title:"今天的盒饭",content:"她认真记录吃过的每一顿饭。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
+ "archive-photos-noodles":{title:"食堂的一碗面",content:"她为一碗普通的面留下了照片和评价。",archiveContent:"她拥有一双善于发现生活之美的眼睛。",fields:["caresFact"]},
  "archive-photos-drawings":{title:"最近删除的画",content:"画还有6天永久删除。",archiveContent:"她创作的痕迹，正在一点点被时间收走。",fields:["hobbiesFact"]},
  "archive-notes-interview":{title:"职位面试准备",content:"外贸面试问题、自我介绍、实习案例与公司产品线。",fields:[]},
  "archive-notes-research":{title:"数字金融课题 Todo",content:"数字金融与居民消费关系分析｜硕士研究课题（2025.10–2026.01）",fields:["projectFact"]},
@@ -1076,7 +1227,7 @@ Object.assign(EVIDENCE_LIBRARY,{
  "archive-transfers-catVet":{title:"给猫看病200元",content:"宠物医院支出。",archiveContent:"她会为一只与自己无关的生命，承担起责任。",fields:["kindnessFact"]},
  "archive-transfers-groceries":{title:"替王奶奶买菜",content:"菜市场支出。",archiveContent:"她把邻里之间的关照，活成了日常的一部分。",fields:["kindnessFact"]}
 });
-const state={unlocked:false,introSeen:false,tutorialStep:0,tutorialDone:false,app:null,view:null,clues:[],archiveOpen:false,dossier:false,reveal:false,revealPending:false,ending:false,pin:"",unlockStage:0,dossierValues:{},evidenceAssignments:{},selectedEvidence:null,pendingArchive:null,lastAccuracy:null,newFieldCount:0,submitMessage:"",formError:"",commNotice:false,confirmSubmit:false,seenStages:{},submissionCount:0,failCount:0,curatorMessages:[],curatorTyping:false,curatorChoice:false,curatorChoiceMode:"",curatorSilent:false,curatorCanContinue:false,curatorRun:0,unusedEvidence:[],momBanner:false,momFinal:false};
+const state={unlocked:false,introSeen:false,tutorialStep:0,tutorialDone:false,tutorialModal:false,app:null,view:null,photoTab:"library",photoOrigin:"library",clues:[],archiveOpen:false,dossier:false,reveal:false,revealPending:false,ending:false,pin:"",unlockStage:0,dossierValues:{},evidenceAssignments:{},selectedEvidence:null,pendingArchive:null,lastAccuracy:null,newFieldCount:0,submitMessage:"",formError:"",formAlert:false,commNotice:false,confirmSubmit:false,seenStages:{},submissionCount:0,failCount:0,curatorMessages:[],curatorTyping:false,curatorChoice:false,curatorChoiceMode:"",curatorSilent:false,curatorCanContinue:false,curatorRun:0,unusedEvidence:[],momBanner:false,momBannerPhase:"",momNotificationIndex:0,momNoticeRun:0,momFinal:false};
 const $=s=>document.querySelector(s);
 const currentTime=()=>"02:17";
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -1130,21 +1281,68 @@ function render(){
  const p=$("#phone");
  if(!state.unlocked){p.innerHTML=lockHTML();bindLock();return}
  if(!state.introSeen){p.innerHTML=introHTML();bindIntro();return}
- if(!state.tutorialDone){p.innerHTML=tutorialHTML();bindTutorial();return}
- if(!state.app){p.innerHTML=homeHTML();bindHome();mountGlobalArchive();return}
+ if(!state.app){p.innerHTML=homeHTML();bindHome();mountGlobalArchive();mountPersistentArchiveToggle();mountTutorialUI();return}
  p.innerHTML=appHTML();bindApp();
  if(state.app!=="dossierApp")mountGlobalArchive();
+ mountPersistentArchiveToggle();
+ mountTutorialUI();
 }
 function introHTML(){return `<section class="screen intro-screen"><div class="intro-card"><small>明天会有 OC 吗</small><h1>帮张小鱼<br>完成一份简历</h1><p>张小鱼是一个研二的学生，最近正在忙着找工作。看看她的手机，长按收藏重要的信息，完成她的简历吧～</p><div class="intro-list"><b>天堂档案馆 · 0079412</b><span>只能查看她留下的手机</span><span>不能打字，只能点击、滑动、长按和拖拽</span></div><button id="enterPhone">查看她的手机</button></div></section>`}
 function bindIntro(){$("#enterPhone").onclick=()=>{state.introSeen=true;render()}}
-const TUTORIAL_STEPS=[
- ["查找信息","先点开“信息、相册、备忘录、AI 助手”等 App，逐条查看手机里留下的内容。","下一步 →"],
- ["收藏线索","长按一条线索，屏幕会聚焦；继续拖到下方展开的收藏区，看到黄色星标即收藏成功。","下一步 →"],
- ["查看收藏","点击主屏幕右下角的黄色星星，可以展开或收起已收藏线索。","下一步 →"],
- ["填写简历","打开四倍大小的“交简历”，把收藏线索拖进对应板块。第一轮不匹配会弹回；第二轮除个人信息外，每个板块至少1条。","开始探索"]
-];
-function tutorialHTML(){const t=TUTORIAL_STEPS[state.tutorialStep];return homeHTML().replace("</section>",`<div class="tutorial-layer"><div class="tutorial-tip"><small>系统操作提示 ${state.tutorialStep+1}/4</small><h2>↗ ${t[0]}</h2><p>${t[1]}</p><button id="tutorialNext">${t[2]}</button></div></div></section>`)}
-function bindTutorial(){$("#tutorialNext").onclick=()=>{if(state.tutorialStep<TUTORIAL_STEPS.length-1)state.tutorialStep++;else state.tutorialDone=true;render()}}
+const TUTORIAL_COPY={
+ 0:["查找信息","点击任意 App，可以查看张小鱼手机里的各种信息"],
+ 2:["查看已收藏内容","点击这里，可以随时查看你已经收藏的所有信息"],
+ 3:["填写简历","打开这里，把收藏的信息拖进简历对应的位置吧"]
+};
+function mountTutorialUI(){
+ if(state.tutorialDone)return;
+ const screen=$("#phone .screen");if(!screen)return;
+ if(state.tutorialStep===1){
+  screen.classList.add("tutorial-dim");
+  const clue=screen.querySelector('[data-archive-evidence="archive-wechat-class"]');
+  if(clue){
+   clue.classList.add("tutorial-line-target");
+   clue.insertAdjacentHTML("afterend",`<div class="tutorial-inline">长按这条信息，可以将它收藏起来</div>`);
+  }
+ }
+ if(state.tutorialStep===2){
+  screen.classList.add("tutorial-dim");
+  const star=$("#archiveToggle");
+  if(star)star.classList.add("tutorial-target",...(state.tutorialModal?[]:["tutorial-wiggle"]));
+ }
+ if(state.tutorialStep===4&&state.app==="dossierApp"&&!state.view){
+  screen.classList.add("tutorial-dim");
+  const star=$("#archiveToggle");
+  screen.querySelectorAll("[data-drop-field],[data-evidence],#submitDossier,#openResumeMessages").forEach(el=>{el.style.pointerEvents="none";el.style.opacity=".7"});
+  if(!state.archiveOpen){
+   if(star)star.classList.add("tutorial-target","tutorial-wiggle");
+   screen.insertAdjacentHTML("beforeend",`<div class="tutorial-inline tutorial-resume-arrow">点击这里查看你收藏的信息</div>`);
+  }else{
+   const card=screen.querySelector('[data-evidence="archive-wechat-class"]')||screen.querySelector("[data-evidence]");
+   const sectionId=card?correctSectionsFor(card.dataset.evidence)[0]:null;
+   const target=sectionId?screen.querySelector(`[data-drop-field="${sectionId}"]`):null;
+   if(card){card.style.pointerEvents="auto";card.style.opacity="1";card.classList.add("tutorial-line-target")}
+   if(target){target.style.pointerEvents="auto";target.style.opacity="1";target.classList.add("tutorial-line-target")}
+   screen.insertAdjacentHTML("beforeend",`<div class="tutorial-inline">按住高亮卡片拖动。镜像会跟随手指或鼠标，把它放进高亮的简历板块</div>`);
+  }
+ }
+ if(state.tutorialStep===5&&state.app==="dossierApp"&&!state.view){
+  const content=screen.querySelector(".content");
+  if(content)content.insertAdjacentHTML("afterbegin",`<div class="tutorial-final">注：信息如果和板块不匹配会被退回，全部板块填写完成后即可点击提交<button id="tutorialFinish">我知道了</button></div>`);
+  $("#tutorialFinish").onclick=()=>{state.tutorialDone=true;state.tutorialStep=-1;state.tutorialModal=false;render()};
+ }
+ if(!state.tutorialModal)return;
+ const [title,copy]=TUTORIAL_COPY[state.tutorialStep]||[];
+ if(!title)return;
+ screen.insertAdjacentHTML("beforeend",`<div class="tutorial-modal-layer"><div class="tutorial-modal"><h2>${title}</h2><p>${copy}</p><button id="tutorialModalNext">${state.tutorialStep===0?"下一步":"知道了"}</button></div></div>`);
+ $("#tutorialModalNext").onclick=()=>{
+  state.tutorialModal=false;
+  if(state.tutorialStep===0){state.tutorialStep=1;state.app="wechat";state.view="class"}
+  else if(state.tutorialStep===2){state.tutorialStep=3;state.archiveOpen=false;state.app=null;state.view=null}
+  else if(state.tutorialStep===3){state.tutorialStep=4;state.archiveOpen=false;state.app="dossierApp";state.view=null}
+  render();
+ };
+}
 function renderPreservingScroll(){
  const top=$(".content")?.scrollTop||0,left=$(".evidence-list")?.scrollLeft||0;
  render();
@@ -1165,9 +1363,19 @@ function hasAppUpdate(appId){
  const keys=APP_DATA_KEYS[appId]||[];
  return keys.some(key=>(APP_DATA[key]||[]).some(item=>(item.unlockAt||0)>0&&(item.unlockAt||0)<=state.unlockStage&&(state.seenStages[appId]??0)<state.unlockStage));
 }
-function homeHTML(){return `<section class="screen home">${status(true)}<div class="apps">${APPS.map(a=>`<button class="app ${a[0]==="dossierApp"?"core-app":""}" data-app="${a[0]}"><span class="icon ${a[3]}">${a[2]}${a[4]?`<i class="app-badge">${a[4]}</i>`:hasAppUpdate(a[0])?`<i class="update-dot"></i>`:""}</span><span>${a[1]}</span></button>`).join("")}</div></section>`}
+function homeHTML(){
+ const tutorialTarget=!state.tutorialDone?(state.tutorialStep===0?"wechat":state.tutorialStep===3?"dossierApp":null):null;
+ const guided=Boolean(tutorialTarget);
+ return `<section class="screen home ${guided?"tutorial-dim":""}">${status(true)}<div class="apps">${APPS.map(a=>{
+  const target=a[0]===tutorialTarget,locked=guided&&!target;
+  return `<button class="app ${a[0]==="dossierApp"?"core-app":""} ${target?"tutorial-target":""}" data-app="${a[0]}" ${locked?"disabled aria-disabled=\"true\"":""}><span class="icon ${a[3]} ${target&&!state.tutorialModal?"tutorial-wiggle":""}">${a[2]}${a[4]?`<i class="app-badge">${a[4]}</i>`:hasAppUpdate(a[0])?`<i class="update-dot"></i>`:""}</span><span>${a[1]}</span></button>`;
+ }).join("")}</div></section>`;
+}
 function openApp(appId){state.seenStages[appId]=state.unlockStage;state.app=appId;state.view=null;render()}
-function bindHome(){document.querySelectorAll("[data-app]").forEach(b=>b.onclick=()=>openApp(b.dataset.app));document.querySelectorAll("[data-case]").forEach(b=>b.onclick=()=>openApp("dossierApp"))}
+function bindHome(){document.querySelectorAll("[data-app]").forEach(b=>b.onclick=()=>{
+ if(!state.tutorialDone&&((state.tutorialStep===0&&b.dataset.app==="wechat")||(state.tutorialStep===3&&b.dataset.app==="dossierApp"))){state.tutorialModal=true;render();return}
+ openApp(b.dataset.app)
+});document.querySelectorAll("[data-case]").forEach(b=>b.onclick=()=>openApp("dossierApp"))}
 function shell(title,content,extra=""){return `<section class="screen slide-in ${extra}">${status()}<header class="nav">${state.view?`<button id="back">‹ 返回</button>`:`<span></span>`}<b>${esc(title)}</b><span></span></header><div class="content">${content}</div><button class="homebar" id="homebar" aria-label="向上滑动返回主屏幕"></button></section>`}
 function appHTML(){
  if(PLACEHOLDER_APPS[state.app]){
@@ -1192,27 +1400,64 @@ function appHTML(){
  if(state.app==="dossierApp")return dossierAppHTML();
  const a=APPS.find(x=>x[0]===state.app);return shell(a[1],`<div class="locked"><span>${a[2]}</span><h2>内容已被移除</h2><p>这部分数据没有同步到设备。也许其他 App 里还留有痕迹。</p></div>`);
 }
+const CONTACT_AVATAR_COLORS={
+ curator:"#9b887a",mom:"#b89b8b",friends:"#a9947f",draft:"#b29a91",
+ community:"#9eaa91",advisor:"#948b83",class:"#a99f8b",sister:"#b49a8d",
+ manager:"#8f9993",family:"#aa9684",recruiter:"#9a8f87",stranger:"#a3a08f",
+ uncleChen:"#a58e7d",service:"#969f9d",drafts:"#aa9b91"
+};
+function contactAvatarColor(contactId){
+ if(CONTACT_AVATAR_COLORS[contactId])return CONTACT_AVATAR_COLORS[contactId];
+ const palette=["#a89082","#999d8d","#ad9886","#918f88","#a49b91"];
+ return palette[[...String(contactId)].reduce((sum,char)=>sum+char.charCodeAt(0),0)%palette.length];
+}
+function messageLineHTML(content,from,contactId){
+ return `<div class="message-line ${from==="me"?"me":""}" style="--contact-avatar:${contactAvatarColor(contactId)}"><span class="message-avatar" aria-hidden="true"></span>${content}</div>`;
+}
+const MOM_NOTIFICATION_MESSAGES=["今天降温了","出门记得带件外套","怎么一天没回消息啊"];
 function wechatHTML(){
  const chats=visibleData("chats").sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0));
  if(!state.view)return shell("信来",`<div class="search">⌕ 搜索</div>${chats.map(c=>{const curatorLast=c.id==="curator"?state.curatorMessages.at(-1)?.text:"";return `<button class="chat-row" data-chat="${c.id}"><span class="avatar">${c.avatar}</span><span class="chat-copy"><b>${c.name}</b><small>${esc(curatorLast||c.preview||"")}</small></span><span class="chat-time">${c.id==="curator"?"刚刚":c.time}${c.unread?`<i class="unread">${c.unread}</i>`:""}</span></button>`}).join("")}`);
  if(state.view==="curator"){
-  const messages=state.curatorMessages.map(message=>message.kind==="file"?`<div class="file-bubble ${message.from==="me"?"me":""}"><span class="file-icon">${message.ext||"DOC"}</span><span><b>${esc(message.text)}</b><small>文件 · ${message.from==="me"?"已发送":"点击后已保存"}</small></span></div>`:`<div class="bubble ${message.from==="me"?"me":""}">${esc(message.text)}</div>`).join("");
-  const typing=state.curatorTyping?`<div class="bubble typing-bubble" aria-label="对方正在输入"><i></i><i></i><i></i></div>`:"";
+  const messages=state.curatorMessages.map(message=>messageLineHTML(message.kind==="file"?`<div class="file-bubble ${message.from==="me"?"me":""}"><span class="file-icon">${message.ext||"DOC"}</span><span><b>${esc(message.text)}</b><small>文件 · ${message.from==="me"?"已发送":"点击后已保存"}</small></span></div>`:`<div class="bubble ${message.from==="me"?"me":""}">${esc(message.text)}</div>`,message.from,"curator")).join("");
+  const typing=state.curatorTyping?messageLineHTML(`<div class="bubble typing-bubble" aria-label="对方正在输入"><i></i><i></i><i></i></div>`,"them","curator"):"";
   const choice=state.curatorChoice?`<button class="curator-choice" id="curatorChoice">${state.curatorChoiceMode==="final"?"好了好了馆长":"不是投简历吗"}</button>`:"";
   const silent=state.curatorCanContinue?`<button class="silent-hint action" id="curatorContinue">返回档案继续调整</button>`:state.curatorSilent?`<div class="silent-hint">请稍候…</div>`:"";
-  const mom=state.momBanner?`<button class="mom-banner" id="momBanner"><b>妈</b><span>${state.momFinal?"小鱼？":"今天降温了<br>出门记得带件外套<br>怎么一天没回消息啊"}</span></button>`:"";
+  const mom=state.momBanner?`<button class="mom-banner ${state.momBannerPhase==="leaving"?"leaving":""}" id="momBanner"><b></b><span>${esc(MOM_NOTIFICATION_MESSAGES[state.momNotificationIndex]||"")}</span></button>`:"";
   return shell("Boss",`${mom}<div class="curator-thread"><div class="chat-date">0079412 · 归档对话</div>${messages}${typing}${choice}${silent}${state.commNotice?`<div class="comm-notice">天堂档案员禁止与人间通讯。</div>`:""}<button class="dead-input" id="blockedInput" aria-label="无法输入">输入消息</button></div>`,"curator-screen");
  }
  const c=APP_DATA.chats.find(x=>x.id===state.view);
  const all=[...(c.messages||[]),...(c.stageMessages||[]).filter(m=>m.unlockAt<=state.unlockStage)];
- const msgs=all.map((m,i)=>`<button class="bubble archive-info ${m.from==="me"?"me":""}" ${archiveAttrs("wechat",c.id,"message"+i,c.name+" · "+(m.timestamp||"消息"),m.content)}>${esc(m.content)}<small style="display:block;opacity:.45;margin-top:3px">${esc(m.timestamp||"")}</small></button>`).join("");
+ const msgs=all.map((m,i)=>messageLineHTML(`<button class="bubble archive-info ${m.from==="me"?"me":""}" ${archiveAttrs("wechat",c.id,"message"+i,c.name+" · "+(m.timestamp||"消息"),m.content)}>${esc(m.content)}<small style="display:block;opacity:.45;margin-top:3px">${esc(m.timestamp||"")}</small></button>`,m.from,c.id)).join("");
  return shell(c.name,`<div class="messages"><div class="chat-date">聊天记录</div>${msgs}${c.id==="mom"?`<button class="dead-input" id="blockedInput" aria-label="无法输入">输入消息</button>${state.commNotice?`<div class="comm-notice">天堂档案员禁止与人间通讯。</div>`:""}`:""}</div>`);
 }
+function photoThumbHTML(item,deleted=false){
+ const image=item.src?`<img src="${esc(item.src)}" alt="${esc(item.title)}">`:`<span class="ios-photo-placeholder ${item.cls||""}">${esc(item.title)}</span>`;
+ return `<button class="ios-photo-thumb" ${deleted?`data-deleted-photo="${item.id}"`:`data-photo="${item.id}"`} data-photo-origin="${deleted?"deleted":item.album||"library"}" aria-label="${esc(item.title)}">${image}</button>`;
+}
 function photosHTML(){
- const photos=state.view==="deleted"?visibleData("recentlyDeleted"):visibleData("photos");
- if(!state.view){const formal=photos.filter(p=>["intern","award"].includes(p.id)),normal=photos.filter(p=>!formal.includes(p));return shell("相册",`<div class="photo-title"><div><h1>图库</h1><small>${photos.length} 张</small></div></div><div class="section-label">普通</div><div class="photo-grid">${normal.map(p=>`<button class="photo ${p.cls}" data-photo="${p.id}"><span>${p.date.split(" ")[0]}</span></button>`).join("")}</div><div class="section-label">收藏</div><div class="photo-grid">${formal.map(p=>`<button class="photo ${p.cls}" data-photo="${p.id}"><span>${p.date.split(" ")[0]}</span></button>`).join("")}</div><button class="section-label" data-deleted style="border:0;background:none;width:100%;text-align:left;opacity:${state.unlockStage>0?".88":".48"}">最近删除 · ${state.unlockStage>0?"权限已开放":"尚无权限"}</button>`)}
- if(state.view==="deleted")return shell("最近删除",`<div class="photo-title"><div><h1>最近删除</h1><small>这些项目将在 28 天后删除</small></div></div><div class="photo-grid">${photos.map(p=>`<button class="photo ${p.cls}" data-deleted-photo="${p.id}"><span>${p.date.split(" ")[0]}</span></button>`).join("")}</div>`);
- const p=[...APP_DATA.photos,...APP_DATA.recentlyDeleted].find(x=>x.id==state.view);return shell(p.date,`<div class="photo-big ${p.cls}">${p.title}</div><div class="meta"><h2>${p.title}</h2><button class="archive-line" ${archiveAttrs("photos",p.id,"place",p.title+" · 地点",p.place)}>⌖ ${p.place}</button><button class="archive-line" ${archiveAttrs("photos",p.id,"date",p.title+" · 时间",p.date)}>◷ ${p.date}</button><button class="archive-detail" ${archiveAttrs("photos",p.id,"description",p.title,p.desc)}>${p.desc}</button></div>`);
+ const allPhotos=visibleData("photos");
+ if(!state.view){
+  const selected=allPhotos.filter(photo=>(photo.album||"library")===state.photoTab);
+  const empty=state.photoTab==="library"&&state.unlockStage===0
+   ?`<div class="ios-photo-empty"><b>图库暂无照片</b><span>权限开放后，这里会显示普通相册内容。</span></div>`
+   :`<div class="ios-photo-empty"><b>暂无照片</b></div>`;
+  const tabs=`<div class="photos-segment"><button data-photo-tab="library" class="${state.photoTab==="library"?"active":""}">图库</button><button data-photo-tab="favorites" class="${state.photoTab==="favorites"?"active":""}">收藏</button></div>`;
+  const deletedAvailable=state.unlockStage>0;
+  return shell("照片",`<div class="ios-photos-home"><header class="ios-photos-heading"><h1>${state.photoTab==="library"?"图库":"收藏"}</h1><small>${selected.length} 张照片</small></header>${tabs}${selected.length?`<div class="ios-photo-grid">${selected.map(photo=>photoThumbHTML(photo)).join("")}</div>`:empty}<section class="album-options"><h2>更多项目</h2><button class="album-row" ${deletedAvailable?"data-deleted":"disabled"}><span>最近删除</span><small>${deletedAvailable?`${visibleData("recentlyDeleted").length} 项`:"尚无权限"}　›</small></button></section></div>`,"photos-screen");
+ }
+ if(state.view==="deleted"){
+  const deleted=visibleData("recentlyDeleted");
+  return shell("最近删除",`<div class="ios-photos-home"><header class="ios-photos-heading"><h1>最近删除</h1><small>这些项目将在 28 天后删除</small></header>${deleted.length?`<div class="ios-photo-grid">${deleted.map(photo=>photoThumbHTML(photo,true)).join("")}</div>`:`<div class="ios-photo-empty"><b>没有照片</b></div>`}</div>`,"photos-screen");
+ }
+ const item=[...APP_DATA.photos,...APP_DATA.recentlyDeleted].find(photo=>String(photo.id)===String(state.view));
+ if(!item)return shell("照片",`<div class="ios-photo-empty"><b>照片不可用</b></div>`,"photos-screen");
+ const source=state.photoOrigin==="deleted"
+  ?visibleData("recentlyDeleted")
+  :allPhotos.filter(photo=>(photo.album||"library")===state.photoOrigin);
+ const currentIndex=Math.max(0,source.findIndex(photo=>String(photo.id)===String(item.id)));
+ const image=item.src?`<img src="${esc(item.src)}" alt="${esc(item.title)}">`:`<span class="ios-photo-placeholder ${item.cls||""}">${esc(item.title)}</span>`;
+ return shell(item.date,`<div class="ios-photo-detail"><button class="photo-detail-more" aria-label="更多操作">•••</button><div class="photo-detail-stage"><button class="photo-detail-image" ${archiveAttrs("photos",item.id,"image",item.title,item.desc)}>${image}</button></div><div class="photo-detail-caption"><b>${esc(item.title)}</b><small>${esc(item.date)} · ${esc(item.place)}</small><p>${esc(item.desc)}</p></div><div class="photo-detail-controls"><button data-photo-nav="${currentIndex-1}" ${currentIndex<=0?"disabled":""} aria-label="上一张">‹</button><button data-photo-nav="${currentIndex+1}" ${currentIndex>=source.length-1?"disabled":""} aria-label="下一张">›</button></div></div>`,"photo-detail-screen");
 }
 function aiHTML(){
  const history=visibleData("ai");
@@ -1252,14 +1497,15 @@ function dossierAppHTML(){
  const filled=activeIds.length;
  const activeCategoryIds=activeSections.map(section=>section.id);
  const evidence=state.unlockStage===0?collectedEvidence():collectedEvidence().filter(item=>correctSectionsFor(item.id).some(category=>activeCategoryIds.includes(category)));
- const archive=`<button class="archive-toggle" id="dossierArchiveToggle" aria-label="收藏夹">★</button><section class="evidence-archive ${state.archiveOpen?"open":""}"><div class="archive-head"><h3>已收藏线索</h3><small>${evidence.length} 条 · 向左滑动浏览</small></div>${evidence.length?`<div class="evidence-list">${evidence.map(item=>`<button class="evidence-card ${state.selectedEvidence===item.id?"selected":""} ${activeIds.includes(item.id)?"used":""}" draggable="true" data-evidence="${item.id}"><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></button>`).join("")}</div>`:`<div class="archive-empty">暂无收藏。<br>请先返回手机长按收藏线索。</div>`}</section>`;
+ const archive=`<section class="evidence-archive ${state.archiveOpen?"open":""}"><div class="archive-head"><h3>已收藏线索</h3><small>${evidence.length} 条 · 向左滑动浏览</small></div>${evidence.length?`<div class="evidence-list">${evidence.map(item=>`<button class="evidence-card ${state.selectedEvidence===item.id?"selected":""} ${activeIds.includes(item.id)?"used":""}" data-evidence="${item.id}"><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></button>`).join("")}</div>`:`<div class="archive-empty">暂无收藏。<br>请先返回手机长按收藏线索。</div>`}</section>`;
  const firstEmptySection=activeSections.find(section=>!section.optional)?.id;
  const form=activeSections.map(section=>{const ids=state.evidenceAssignments[section.id]||[];const emptyHint=section.id===firstEmptySection?`将“已收集信息”放入对应栏目<br><small>不符合这份表格的信息会退回未采用区</small>`:`<span class="empty-brief">暂无归档内容</span>`;return `<section class="form-section"><h3>${esc(section.label)}<small style="display:block;margin-top:4px;font-weight:400">${esc(section.description)}</small></h3><div class="field"><div class="drop-field section-drop ${ids.length?"filled":"empty-quiet"}" data-drop-field="${section.id}" tabindex="0">${ids.length?ids.map(id=>{const item=EVIDENCE_LIBRARY[id];return `<div class="filed-evidence"><button class="remove-evidence" data-remove-evidence="${id}" data-section="${section.id}">×</button><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></div>`}).join(""):emptyHint}</div></div></section>`}).join("");
  const unused=state.unusedEvidence.length?`<section class="unused-tray"><h3>未采用</h3>${state.unusedEvidence.map(id=>`<span>${esc(EVIDENCE_LIBRARY[id]?.title||"未命名信息")}</span>`).join("")}</section>`:"";
  const confirm=state.confirmSubmit?`<div class="confirm-sheet"><div class="confirm-card"><h2>确定提交档案吗？</h2><p>还有一些信息可能没有被发现。提交后将检查档案的完整度与分类。</p><div class="confirm-actions"><button class="primary" id="confirmDossier">确认提交</button><button class="secondary" id="cancelDossier">继续填写</button></div></div></div>`:"";
+ const formAlert=state.formAlert?`<div class="confirm-sheet"><div class="confirm-card"><h2>暂时无法提交</h2><p>${esc(state.formError)}</p><div class="confirm-actions"><button class="primary" id="dismissFormAlert">知道了</button></div></div></div>`:"";
  const required=activeSections.filter(section=>!section.optional).length;
  const completed=activeSections.filter(section=>!section.optional&&(state.evidenceAssignments[section.id]||[]).length).length;
- return shell(state.unlockStage===0?"人间简历模版":"天堂档案馆简历",`<div class="resume-tabs"><button class="active">写简历</button><button id="openResumeMessages">消息列表</button></div><div class="resume-hero"><small>${state.unlockStage===0?"HUMAN RESUME · 0079412":"HEAVEN ARCHIVE · 0079412"}</small><h1>${state.unlockStage===0?"人间简历模版":"天堂档案馆简历模版"}</h1><p>${state.unlockStage===0?"把她压缩进一张简历":"这次，表格换了一组问题"}</p><div class="resume-progress"><span><i style="width:${Math.min(100,completed/required*100)}%"></i></span><b>${completed}/${required}</b></div></div>${state.formError?`<div class="form-error">${esc(state.formError)}</div>`:""}${unused}${form}<div class="submit-wrap"><button class="primary" id="submitDossier">一键提交</button></div>${archive}${confirm}`);
+ return shell(state.unlockStage===0?"人间简历模版":"天堂档案馆简历",`<div class="resume-tabs"><button class="active">写简历</button><button id="openResumeMessages">消息列表</button></div><div class="resume-hero"><small>${state.unlockStage===0?"HUMAN RESUME · 0079412":"HEAVEN ARCHIVE · 0079412"}</small><h1>${state.unlockStage===0?"人间简历模版":"天堂档案馆简历模版"}</h1><p>${state.unlockStage===0?"把她压缩进一张简历":"这次，表格换了一组问题"}</p><div class="resume-progress"><span><i style="width:${Math.min(100,completed/required*100)}%"></i></span><b>${completed}/${required}</b></div></div>${state.formError&&!state.formAlert?`<div class="form-error">${esc(state.formError)}</div>`:""}${unused}${form}<div class="submit-wrap"><button class="primary" id="submitDossier">一键提交</button></div>${archive}${confirm}${formAlert}`);
 }
 function resumeMessagesHTML(){
  const bossPreview=state.curatorMessages.at(-1)?.text||"";
@@ -1271,11 +1517,21 @@ function resumeMessagesHTML(){
  ];
  return shell("消息列表",`<div class="resume-tabs"><button id="openResumeForm">写简历</button><button class="active">消息列表</button></div><button class="chat-row" ${state.curatorMessages.length?`id="openBoss"`:"disabled"}><span class="avatar">B</span><span class="chat-copy"><b>Boss</b><small>${esc(bossPreview||"档案馆")}</small></span><span class="chat-time">刚刚${state.revealPending?`<i class="unread">1</i>`:""}</span></button>${hrs.map(([name,preview])=>`<button class="chat-row hr-row" disabled><span class="avatar">HR</span><span class="chat-copy"><b>${name}</b><small>${preview}</small><em class="hr-read">已读</em></span><span class="chat-time">昨天以前</span></button>`).join("")}`);
 }
+function requiredDossierSections(phase){
+ return DOSSIER_SECTIONS.filter(section=>section.phase===phase&&!section.optional);
+}
+function missingDossierSections(phase){
+ return requiredDossierSections(phase).filter(section=>!(state.evidenceAssignments[section.id]||[]).length);
+}
 function submitDossier(){
  const phase=state.unlockStage===0?0:1;
- const required=DOSSIER_SECTIONS.filter(section=>section.phase===phase&&!section.optional);
- const missing=required.filter(section=>!(state.evidenceAssignments[section.id]||[]).length);
+ const missing=missingDossierSections(phase);
  state.confirmSubmit=false;
+ if(missing.length&&phase===0){
+   state.formError="信息不足，请检查是否有板块还没有填写内容";
+   state.formAlert=true;renderPreservingScroll();
+   return;
+ }
  if(missing.length&&phase===1){
    state.failCount++;
    state.curatorMessages.push({from:"them",text:state.failCount%2?"信息收集的不全，再仔细翻翻看她的手机！":"再去看看，我总觉得还少点什么！"});
@@ -1289,6 +1545,23 @@ function submitDossier(){
 function renderCurator(){
  render();
  requestAnimationFrame(()=>{const content=$(".content");if(content)content.scrollTop=content.scrollHeight});
+}
+function startMomNotifications(){
+ const run=++state.momNoticeRun;
+ const show=index=>{
+  if(run!==state.momNoticeRun||index>=MOM_NOTIFICATION_MESSAGES.length)return;
+  state.momNotificationIndex=index;state.momBanner=true;state.momBannerPhase="entering";render();
+  setTimeout(()=>{
+   if(run!==state.momNoticeRun)return;
+   state.momBannerPhase="leaving";render();
+   setTimeout(()=>{
+    if(run!==state.momNoticeRun)return;
+    state.momBanner=false;state.momBannerPhase="";render();
+    if(index+1<MOM_NOTIFICATION_MESSAGES.length)setTimeout(()=>show(index+1),700);
+   },340);
+  },1800);
+ };
+ show(0);
 }
 function queueCuratorReplies(items,onDone){
  const run=state.curatorRun;
@@ -1381,64 +1654,262 @@ function showArchivePrompt(){
 }
 function globalArchiveHTML(){
  const evidence=collectedEvidence();
- return `<button class="archive-toggle" id="archiveToggle" aria-label="收藏夹">★</button><section class="global-evidence evidence-archive ${state.archiveOpen?"open":""}"><div class="archive-head"><h3>已收藏线索</h3><small>${evidence.length} 条 · 向左滑动浏览</small></div>${evidence.length?`<div class="evidence-list">${evidence.map(item=>`<div class="evidence-card"><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></div>`).join("")}</div>`:`<div class="archive-empty">暂无收藏。<br>长按线索并拖到这里。</div>`}</section>`;
+ return `<section class="global-evidence evidence-archive ${state.archiveOpen?"open":""}"><div class="archive-head"><h3>已收藏线索</h3><small>${evidence.length} 条 · 向左滑动浏览</small></div>${evidence.length?`<div class="evidence-list">${evidence.map(item=>`<div class="evidence-card"><b>${esc(item.title)}</b><small>${esc(evidenceText(item))}</small></div>`).join("")}</div>`:`<div class="archive-empty">暂无收藏。<br>长按线索并拖到这里。</div>`}</section>`;
 }
 function mountGlobalArchive(){
  const screen=$("#phone .screen");if(!screen)return;
  screen.querySelector(".global-evidence")?.remove();
- screen.querySelector(".archive-toggle")?.remove();
  screen.insertAdjacentHTML("beforeend",globalArchiveHTML());
+}
+function mountPersistentArchiveToggle(){
+ const phone=$("#phone");if(!phone||!state.unlocked||!state.introSeen)return;
+ phone.querySelector(":scope > .persistent-archive-toggle")?.remove();
+ phone.insertAdjacentHTML("beforeend",`<button class="archive-toggle persistent-archive-toggle" id="archiveToggle" aria-label="收藏夹">★</button>`);
  const toggle=$("#archiveToggle");
- if(toggle)toggle.onclick=()=>{state.archiveOpen=!state.archiveOpen;mountGlobalArchive()};
+ toggle.onclick=()=>{
+  if(!state.tutorialDone&&state.tutorialStep===2){state.archiveOpen=true;state.tutorialModal=true;render();return}
+  state.archiveOpen=!state.archiveOpen;
+  if(state.app==="dossierApp"&&!state.view)renderPreservingScroll();
+  else{mountGlobalArchive();mountPersistentArchiveToggle()}
+ };
 }
 function bindArchiveHearts(){
- document.querySelectorAll("[data-archive-evidence]").forEach(el=>{
+ document.querySelectorAll("[data-archive-evidence]").forEach((el,index)=>{
   const evidenceId=el.dataset.archiveEvidence;
   el.classList.add("archive-heart-host");
   el.onclick=null;
+  const tutorialClue=!state.tutorialDone&&state.tutorialStep===1;
+  const tutorialStar=!state.tutorialDone&&state.tutorialStep===2;
+  if(tutorialStar){el.style.pointerEvents="none";el.style.opacity=".7"}
+  if(tutorialClue&&(evidenceId!=="archive-wechat-class"||index>0)){el.style.pointerEvents="none";el.style.opacity=".7"}
   if(state.clues.includes(evidenceId))el.classList.add("collected");
-  let timer=null,active=false;
-  const cancel=()=>{clearTimeout(timer);timer=null;if(active){active=false;el.classList.remove("longpress-active");el.closest(".screen")?.classList.remove("collect-focus")}};
+  let timer=null,active=false,clone=null,pointerId=null,startX=0,startY=0,lastX=0,lastY=0,sourceRect=null,visualScale=1;
+  const removeGlobalListeners=()=>{
+   window.removeEventListener("pointermove",onMove);
+   window.removeEventListener("pointerup",onEnd);
+   window.removeEventListener("pointercancel",onCancel);
+  };
+  const clearState=()=>{
+   clearTimeout(timer);timer=null;removeGlobalListeners();
+   document.querySelector(".global-evidence")?.classList.remove("collect-drop-active");
+   if(active){active=false;el.classList.remove("longpress-active");el.closest(".screen")?.classList.remove("collect-focus")}
+  };
+  const moveClone=(x,y)=>{
+   if(!clone)return;
+   clone.style.transform=`translate3d(${x-startX}px,${y-startY}px,0) scale(${visualScale*1.07})`;
+   const tray=document.querySelector(".global-evidence");
+   if(tray){
+    const r=tray.getBoundingClientRect();
+    tray.classList.toggle("collect-drop-active",x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom);
+   }
+  };
+  const begin=()=>{
+   active=true;state.archiveOpen=true;sourceRect=el.getBoundingClientRect();
+   visualScale=sourceRect.width/el.offsetWidth||1;
+   clone=el.cloneNode(true);
+   clone.removeAttribute("data-archive-evidence");
+   clone.classList.remove("longpress-active","tutorial-line-target","collected");
+   clone.classList.add("evidence-drag-clone","archive-collect-clone");
+   Object.assign(clone.style,{left:`${sourceRect.left}px`,top:`${sourceRect.top}px`,width:`${el.offsetWidth}px`,height:`${el.offsetHeight}px`,transformOrigin:"top left"});
+   document.body.appendChild(clone);
+   el.classList.add("longpress-active");el.closest(".screen")?.classList.add("collect-focus");
+   mountGlobalArchive();
+   requestAnimationFrame(()=>moveClone(lastX,lastY));
+  };
   el.onpointerdown=event=>{
    if(state.clues.includes(evidenceId))return;
-   timer=setTimeout(()=>{
-    active=true;state.archiveOpen=true;
-    el.classList.add("longpress-active");el.closest(".screen")?.classList.add("collect-focus");
-    mountGlobalArchive();
-    el.setPointerCapture?.(event.pointerId);
-   },520);
+   pointerId=event.pointerId;
+   startX=lastX=event.clientX;startY=lastY=event.clientY;
+   window.addEventListener("pointermove",onMove,{passive:false});
+   window.addEventListener("pointerup",onEnd);
+   window.addEventListener("pointercancel",onCancel);
+   timer=setTimeout(begin,420);
   };
-  el.onpointerup=event=>{
-   clearTimeout(timer);
-   if(!active)return;
-   const rect=$("#phone").getBoundingClientRect();
-   if(event.clientY>rect.bottom-Math.min(210,rect.height*.3)){
-    discover(evidenceId);el.classList.add("collected");
+  const onMove=event=>{
+   if(event.pointerId!==pointerId)return;
+   lastX=event.clientX;lastY=event.clientY;
+   if(!active){
+    if(Math.hypot(lastX-startX,lastY-startY)>10){clearTimeout(timer);timer=null}
+    return;
    }
-   state.archiveOpen=false;cancel();mountGlobalArchive();
+   event.preventDefault();moveClone(lastX,lastY);
   };
-  el.onpointercancel=cancel;
+  const finish=(x,y)=>{
+   const tray=document.querySelector(".global-evidence");
+   const trayRect=tray?.getBoundingClientRect();
+   const accepted=!!trayRect&&x>=trayRect.left&&x<=trayRect.right&&y>=trayRect.top&&y<=trayRect.bottom;
+   clearState();
+   if(accepted){
+    clone?.remove();clone=null;
+    discover(evidenceId);el.classList.add("collected");
+    if(tutorialClue){
+     state.tutorialStep=2;state.archiveOpen=false;render();return;
+    }
+    state.archiveOpen=false;mountGlobalArchive();return;
+   }
+   state.archiveOpen=false;mountGlobalArchive();
+   if(!clone)return;
+   clone.style.transition="transform .25s ease-out,opacity .25s ease-out";
+   clone.style.transform=`translate3d(0,0,0) scale(${visualScale})`;
+   clone.style.opacity=".65";
+   const returningClone=clone;clone=null;
+   setTimeout(()=>returningClone.remove(),260);
+  };
+  const onEnd=event=>{
+   if(event.pointerId!==pointerId)return;
+   clearTimeout(timer);
+   if(!active){clearState();return}
+   finish(event.clientX,event.clientY);
+  };
+  const onCancel=event=>{
+   if(event.pointerId!==pointerId)return;
+   if(active)finish(lastX,lastY);
+   else clearState();
+  };
+  el.ondragstart=event=>event.preventDefault();
  });
 }
+function bindEvidenceDrag(card){
+ let clone=null,startX=0,startY=0,lastX=0,lastY=0,startRect=null,timer=null,dragging=false,pointerId=null,visualScale=1;
+ const evidenceId=card.dataset.evidence;
+ const clearTargets=()=>document.querySelectorAll("[data-drop-field].dragover").forEach(box=>box.classList.remove("dragover"));
+ const targetAt=(x,y)=>{
+  const direct=document.elementFromPoint(x,y)?.closest?.("[data-drop-field]");
+  if(direct)return direct;
+  return [...document.querySelectorAll("[data-drop-field]")].find(box=>{
+   const r=box.getBoundingClientRect();return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;
+  })||null;
+ };
+ const moveClone=(x,y)=>{
+  if(!clone)return;
+  clone.style.transform=`translate3d(${x-startX}px,${y-startY}px,0) scale(${visualScale*1.07})`;
+  clearTargets();
+  targetAt(x,y)?.classList.add("dragover");
+ };
+ const begin=event=>{
+  if(dragging)return;
+  dragging=true;startRect=card.getBoundingClientRect();
+  visualScale=startRect.width/card.offsetWidth||1;
+  clone=card.cloneNode(true);
+  clone.removeAttribute("data-evidence");
+  clone.classList.add("evidence-drag-clone");
+  clone.classList.remove("selected","drag-source");
+  Object.assign(clone.style,{left:`${startRect.left}px`,top:`${startRect.top}px`,width:`${card.offsetWidth}px`,height:`${card.offsetHeight}px`,transformOrigin:"top left"});
+  document.body.appendChild(clone);
+  card.classList.add("drag-source");
+  requestAnimationFrame(()=>moveClone(lastX,lastY));
+ };
+ const removeGlobalListeners=()=>{
+  window.removeEventListener("pointermove",onGlobalMove);
+  window.removeEventListener("pointerup",onGlobalEnd);
+  window.removeEventListener("pointercancel",onGlobalCancel);
+ };
+ const clean=()=>{
+  clearTimeout(timer);timer=null;clearTargets();card.classList.remove("drag-source");removeGlobalListeners();
+ };
+ card.onpointerdown=event=>{
+  if(event.button!==undefined&&event.button!==0)return;
+  pointerId=event.pointerId;
+  startX=lastX=event.clientX;startY=lastY=event.clientY;
+  window.addEventListener("pointermove",onGlobalMove,{passive:false});
+  window.addEventListener("pointerup",onGlobalEnd);
+  window.addEventListener("pointercancel",onGlobalCancel);
+  if(event.pointerType==="touch")timer=setTimeout(()=>begin(event),180);
+  else begin(event);
+ };
+ const onGlobalMove=event=>{
+  if(event.pointerId!==pointerId)return;
+  lastX=event.clientX;lastY=event.clientY;
+  if(!dragging){
+   if(Math.hypot(lastX-startX,lastY-startY)>9)clearTimeout(timer);
+   return;
+  }
+  event.preventDefault();moveClone(lastX,lastY);
+ };
+ const finish=event=>{
+  clearTimeout(timer);
+  if(!dragging){clean();return}
+  dragging=false;
+  card._evidenceDragged=true;
+  setTimeout(()=>{card._evidenceDragged=false},0);
+  lastX=event.clientX;lastY=event.clientY;
+  const target=targetAt(lastX,lastY);
+  const valid=target&&correctSectionsFor(evidenceId).includes(target.dataset.dropField);
+  clean();
+  if(valid){
+   clone?.remove();clone=null;
+   if(!state.tutorialDone&&state.tutorialStep===4){
+    state.tutorialStep=5;
+    state.archiveOpen=false;
+   }
+   assignEvidence(target.dataset.dropField,evidenceId);
+   return;
+  }
+  if(!clone)return;
+  clone.style.transition="transform .25s ease-out,opacity .25s ease-out";
+  clone.style.transform=`translate3d(0,0,0) scale(${visualScale})`;
+  clone.style.opacity=".65";
+  const rejectedSection=target?.dataset.dropField;
+  const returningClone=clone;clone=null;
+  setTimeout(()=>{
+   returningClone.remove();
+   if(rejectedSection)assignEvidence(rejectedSection,evidenceId);
+  },260);
+ };
+ const onGlobalEnd=event=>{if(event.pointerId===pointerId)finish(event)};
+ const onGlobalCancel=event=>{
+  if(event.pointerId!==pointerId)return;
+  if(dragging)finish({clientX:lastX,clientY:lastY});
+  else clean();
+ };
+ card.ondragstart=event=>event.preventDefault();
+}
 function bindApp(){
- const goBack=()=>{if(state.app==="dossierApp"&&state.view==="curator"){state.view="messages"}else if(state.view){state.view=null}else{state.app=null}render()};
+ const tutorialLocked=()=>!state.tutorialDone&&[1,2,4].includes(state.tutorialStep);
+ const goBack=()=>{
+  if(tutorialLocked())return;
+  if(state.app==="dossierApp"&&state.view==="curator")state.view="messages";
+  else if(state.app==="photos"&&state.view&&state.view!=="deleted")state.view=state.photoOrigin==="deleted"?"deleted":null;
+  else if(state.view)state.view=null;
+  else state.app=null;
+  render();
+ };
  if($("#back"))$("#back").onclick=goBack;
- const goHome=()=>{state.app=null;state.view=null;render()};
+ const goHome=()=>{if(tutorialLocked())return;state.app=null;state.view=null;render()};
  $("#homebar").onclick=goHome;
  let touchX=0,touchY=0,homeGesture=false;
  $("#phone").ontouchstart=e=>{const touch=e.touches[0],rect=$("#phone").getBoundingClientRect();touchX=touch.clientX;touchY=touch.clientY;homeGesture=touchY>rect.bottom-82};
  $("#phone").ontouchend=e=>{const touch=e.changedTouches[0];if(homeGesture&&touchY-touch.clientY>65){goHome();return}if(touchX<30&&touch.clientX-touchX>70)goBack()};
  document.querySelectorAll("[data-chat]").forEach(b=>b.onclick=()=>openInformation("wechat",b.dataset.chat));
- document.querySelectorAll("[data-photo]").forEach(b=>b.onclick=()=>openInformation("photos",b.dataset.photo));
- if($("[data-deleted]"))$("[data-deleted]").onclick=()=>{state.view="deleted";render()};
- document.querySelectorAll("[data-deleted-photo]").forEach(b=>b.onclick=()=>openInformation("photos",b.dataset.deletedPhoto));
+ document.querySelectorAll("[data-photo-tab]").forEach(button=>button.onclick=()=>{state.photoTab=button.dataset.photoTab;state.view=null;render()});
+ document.querySelectorAll("[data-photo]").forEach(button=>button.onclick=()=>{state.photoOrigin=button.dataset.photoOrigin||state.photoTab;openInformation("photos",button.dataset.photo)});
+ if($("[data-deleted]"))$("[data-deleted]").onclick=()=>{state.photoOrigin="deleted";state.view="deleted";render()};
+ document.querySelectorAll("[data-deleted-photo]").forEach(button=>button.onclick=()=>{state.photoOrigin="deleted";openInformation("photos",button.dataset.deletedPhoto)});
+ document.querySelectorAll("[data-photo-nav]").forEach(button=>button.onclick=()=>{
+  const source=state.photoOrigin==="deleted"?visibleData("recentlyDeleted"):visibleData("photos").filter(photo=>(photo.album||"library")===state.photoOrigin);
+  const next=source[Number(button.dataset.photoNav)];if(next){state.view=String(next.id);render()}
+ });
+ const photoStage=document.querySelector(".photo-detail-stage");
+ if(photoStage){
+  let photoSwipeX=null;
+  photoStage.onpointerdown=event=>{photoSwipeX=event.clientX;photoStage.setPointerCapture?.(event.pointerId)};
+  photoStage.onpointerup=event=>{
+   if(photoSwipeX===null)return;
+   const delta=event.clientX-photoSwipeX;photoSwipeX=null;
+   if(Math.abs(delta)<45)return;
+   const buttons=[...document.querySelectorAll("[data-photo-nav]")];
+   const target=delta>0?buttons[0]:buttons[1];
+   if(target&&!target.disabled)target.click();
+  };
+  photoStage.onpointercancel=()=>{photoSwipeX=null};
+ }
  document.querySelectorAll("[data-ai]").forEach(b=>b.onclick=()=>openInformation("doubao",b.dataset.ai));
  document.querySelectorAll("[data-record]").forEach(b=>b.onclick=()=>openInformation(state.app,b.dataset.record));
  document.querySelectorAll("[data-clue]").forEach(b=>b.onclick=()=>{discover(b.dataset.clue);b.classList.add("found");b.innerHTML="✓ 已收录"});
  bindArchiveHearts();
  document.querySelectorAll("[data-evidence]").forEach(card=>{
-  card.onclick=()=>{state.selectedEvidence=state.selectedEvidence===card.dataset.evidence?null:card.dataset.evidence;renderPreservingScroll()};
-  card.ondragstart=e=>{e.dataTransfer.setData("text/plain",card.dataset.evidence);e.dataTransfer.effectAllowed="move"};
+  card.onclick=()=>{if(card._evidenceDragged)return;state.selectedEvidence=state.selectedEvidence===card.dataset.evidence?null:card.dataset.evidence;renderPreservingScroll()};
+  bindEvidenceDrag(card);
  });
  document.querySelectorAll("[data-drop-field]").forEach(box=>{
   box.ondragover=e=>{e.preventDefault();box.classList.add("dragover")};
@@ -1459,12 +1930,11 @@ function bindApp(){
      {kind:"file",text:"天堂档案馆_简历模版（标准）",ext:"XLSX"},
      {text:"用这个"},
      {text:"我给你开放一些权限，最近删除、草稿箱、回收站，都能看了",unlockAfter:true,pauseBefore:700}
-    ],()=>{state.curatorSilent=true;state.momBanner=true;renderCurator()});
+    ],()=>{state.curatorSilent=true;renderCurator();startMomNotifications()});
    },5200);
   });
  };
  if($("#dismissNewFields"))$("#dismissNewFields").onclick=()=>{state.newFieldCount=0;render()};
- if($("#dossierArchiveToggle"))$("#dossierArchiveToggle").onclick=()=>{state.archiveOpen=!state.archiveOpen;renderPreservingScroll()};
  if($("#openResumeMessages"))$("#openResumeMessages").onclick=()=>{state.view="messages";render()};
  if($("#openResumeForm"))$("#openResumeForm").onclick=()=>{state.view=null;render()};
  if($("#openBoss"))$("#openBoss").onclick=()=>{
@@ -1479,9 +1949,17 @@ function bindApp(){
  };
  if($("#curatorContinue"))$("#curatorContinue").onclick=()=>{state.curatorSilent=false;state.curatorCanContinue=false;state.app="dossierApp";state.view=null;render()};
  if($("#blockedInput"))$("#blockedInput").onclick=()=>{state.commNotice=true;renderCurator()};
- if($("#momBanner"))$("#momBanner").onclick=()=>{state.momBanner=false;state.app="wechat";state.view="mom";render()};
- if($("#submitDossier"))$("#submitDossier").onclick=()=>{state.confirmSubmit=true;render()};
+ if($("#momBanner"))$("#momBanner").onclick=()=>{state.momNoticeRun++;state.momBanner=false;state.momBannerPhase="";state.app="wechat";state.view="mom";render()};
+ if($("#submitDossier"))$("#submitDossier").onclick=()=>{
+  const phase=state.unlockStage===0?0:1;
+  if(phase===0&&missingDossierSections(phase).length){
+   state.formError="信息不足，请检查是否有板块还没有填写内容";
+   state.formAlert=true;state.confirmSubmit=false;renderPreservingScroll();return;
+  }
+  state.formError="";state.formAlert=false;state.confirmSubmit=true;render();
+ };
  if($("#cancelDossier"))$("#cancelDossier").onclick=()=>{state.confirmSubmit=false;render()};
+ if($("#dismissFormAlert"))$("#dismissFormAlert").onclick=()=>{state.formAlert=false;state.formError="";renderPreservingScroll()};
  if($("#confirmDossier"))$("#confirmDossier").onclick=submitDossier;
  if($("#continueExplore"))$("#continueExplore").onclick=()=>{state.app=null;state.view=null;render()};
  if($("#returnPhone"))$("#returnPhone").onclick=()=>{state.app=null;state.view=null;render()};
