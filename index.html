@@ -688,6 +688,12 @@ html,body,.stage{background:#000}
 .apps .core-app{grid-column:span 2;grid-row:span 2;justify-content:center}
 .apps .core-app .icon{width:124px;height:124px;border-radius:30px;font-size:42px}
 .apps .core-app>span:last-child{font-size:13px}
+.apps .core-app .icon,.apps .icon.shopping,.apps .icon.transfers,.chat-row .avatar{border:0!important;box-shadow:none!important}
+.apps .core-app .icon:after,.apps .icon.shopping:after,.apps .icon.transfers:after{border:0!important}
+.apps .icon.transfers{background:#b1b99e;color:#536168}
+.note-row{grid-template-columns:1fr auto}
+.plain-record-row{grid-template-columns:1fr auto}
+.history button.history-entry{grid-template-columns:1fr 52px}
 
 /* Full-screen on portrait phones; preserve a fitted portrait canvas everywhere else. */
 html,body,.stage{width:100%;height:100%;min-height:100%;overflow:hidden}
@@ -1221,13 +1227,13 @@ function photosHTML(){
 }
 function aiHTML(){
  const history=visibleData("ai");
- if(!state.view)return shell("AI 助手",`<div class="ai-hero"><div class="ai-logo">✦</div><h1>AI 助手</h1><p>有什么可以帮你</p><div class="search" style="margin:22px 0 0">输入问题…</div></div><div class="history"><h3>历史对话</h3>${history.map(h=>`<button data-ai="${h.id}"><span>✦</span><div><b>${h.title}</b><small>${h.preview}</small></div><time>${h.time}</time></button>`).join("")}</div>`);
+ if(!state.view)return shell("AI 助手",`<div class="ai-hero"><div class="ai-logo">✦</div><h1>AI 助手</h1><p>有什么可以帮你</p><div class="search" style="margin:22px 0 0">输入问题…</div></div><div class="history"><h3>历史对话</h3>${history.map(h=>`<button class="history-entry" data-ai="${h.id}"><div><b>${h.title}</b><small>${h.preview}</small></div><time>${h.time}</time></button>`).join("")}</div>`);
  const item=APP_DATA.ai.find(h=>h.id===state.view);
  return shell("芝麻",`<div class="ai-thread"><button class="bubble archive-info ai-user" ${archiveAttrs("doubao",item.id,"question",item.title,item.user)}>${esc(item.user)}</button><button class="ai-answer archive-info" ${archiveAttrs("doubao",item.id,"answer",item.title+" · AI 回复",item.answer)}>${esc(item.answer)}</button></div>`);
 }
 function notesHTML(){
  if(state.view){const item=APP_DATA.notes.find(x=>x.id===state.view);return shell("随记",`<article class="note"><small>${esc(item.timestamp)}</small><h1>${esc(item.title)}</h1><button class="archive-detail" ${archiveAttrs("notes",item.id,"content",item.title,item.content)}>${esc(item.content)}</button><p class="hand">${esc(item.subtitle)}</p></article>`)}
- return shell("随记",`<div class="record-list"><div class="section-label">我的随记</div>${visibleData("notes").map(item=>`<button class="record-row" data-record="${item.id}"><span class="record-icon">≡</span><span class="record-copy"><b>${esc(item.title)}</b><small>${esc(item.content)}</small></span><span class="record-meta"><time>${esc(item.timestamp)}</time></span></button>`).join("")}</div>`);
+ return shell("随记",`<div class="record-list"><div class="section-label">我的随记</div>${visibleData("notes").map(item=>`<button class="record-row note-row" data-record="${item.id}"><span class="record-copy"><b>${esc(item.title)}</b><small>${esc(item.content)}</small></span><span class="record-meta"><time>${esc(item.timestamp)}</time></span></button>`).join("")}</div>`);
 }
 function recordDetailHTML(title,key,symbol){
  const item=APP_DATA[key].find(x=>x.id===state.view);
@@ -1237,7 +1243,8 @@ function recordDetailHTML(title,key,symbol){
 function recordsHTML(title,key,symbol){
  if(state.view)return recordDetailHTML(title,key,symbol);
  const summary=key==="transfers"?`<div class="detail-card" style="margin-bottom:8px"><small>账单统计</small><h2>本月支出 ¥10,412.40</h2><div class="resume-tabs" style="margin:10px 0 0"><button class="active">按月</button><button>按天</button></div></div>`:"";
- return shell(title,`${summary}<div class="record-list"><div class="section-label">最近记录</div>${visibleData(key).map(item=>`<button class="record-row" data-record="${item.id}"><span class="record-icon">${item.direction||symbol}</span><span class="record-copy"><b>${esc(item.title)}</b><small>${esc(item.subtitle)}${item.duration?" · "+esc(item.duration):""}</small></span><span class="record-meta"><time>${esc(item.timestamp)}</time>${item.price?`<strong class="${item.status||""}">${esc(item.price)}</strong>`:""}</span></button>`).join("")}</div>`);
+ const hideRecordIcon=key==="shopping"||key==="transfers";
+ return shell(title,`${summary}<div class="record-list"><div class="section-label">最近记录</div>${visibleData(key).map(item=>`<button class="record-row ${hideRecordIcon?"plain-record-row":""}" data-record="${item.id}">${hideRecordIcon?"":`<span class="record-icon">${item.direction||symbol}</span>`}<span class="record-copy"><b>${esc(item.title)}</b><small>${esc(item.subtitle)}${item.duration?" · "+esc(item.duration):""}</small></span><span class="record-meta"><time>${esc(item.timestamp)}</time>${item.price?`<strong class="${item.status||""}">${esc(item.price)}</strong>`:""}</span></button>`).join("")}</div>`);
 }
 function calendarHTML(){
  if(state.view){const item=APP_DATA.calendar.find(x=>x.id===state.view);return shell("日历",`<article class="detail-card"><div class="detail-symbol">15</div><h1>${esc(item.title)}</h1><p>${esc(item.date)}</p><button class="detail-line archive-line" ${archiveAttrs("calendar",item.id,"time",item.title+" · 时间",item.timestamp)}><small>时间</small><b>${esc(item.timestamp)}</b></button><button class="detail-line archive-line" ${archiveAttrs("calendar",item.id,"calendar",item.title+" · 日历",item.subtitle)}><small>日历</small><b>${esc(item.subtitle)}</b></button><button class="detail-line archive-line" ${archiveAttrs("calendar",item.id,"content",item.title+" · 备注",item.content)}><small>备注</small><b>${esc(item.content)}</b></button></article>`)}
